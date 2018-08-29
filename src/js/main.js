@@ -25,7 +25,7 @@ function init() {
 			},
 			hover: {
 				type: 'f',
-				value: -1.0
+				value: 0.1
 			}
 		},
 		elm
