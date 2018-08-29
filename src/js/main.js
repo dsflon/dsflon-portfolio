@@ -19,9 +19,13 @@ function init() {
 		sceneShaderCode.vs,
 		sceneShaderCode.fs,
 		{
-			hover: {
+			startTime: {
 				type: 'f',
 				value: 0
+			},
+			hover: {
+				type: 'f',
+				value: -1.0
 			}
 		},
 		elm

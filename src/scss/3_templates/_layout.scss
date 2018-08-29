@@ -4,15 +4,23 @@ body {
 	min-width: 100%;
 	overflow: hidden;
 	font-family: $font_base;
-	color : $color_text;
+	color : #FFF;
 	font-size: $font-size_base + px;
 	line-height: $line-height_base;
 	background: #000;
+	-webkit-font-smoothing: antialiased;
 }
 
 #bg {
 	position: fixed;
 	width: 100%; height: 100%;
+	z-index: 1;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: middle;
 }
 
 // .fw {

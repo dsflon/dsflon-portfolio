@@ -3,6 +3,7 @@ uniform sampler2D texture;   // フレームバッファに描画したレンダ
 
 varying vec2 vTexCoord; // 頂点シェーダから送られてきたテクスチャ座標
 
+uniform float startTime;
 uniform float time;
 uniform float slideTimer;
 uniform vec2 mouse; // マウスカーソル正規化済み座標 @@@
@@ -10,6 +11,7 @@ uniform vec2 mousePrev; // マウスカーソル正規化済み座標 @@@
 uniform vec2 resolution;
 uniform vec2 imgSize;
 uniform bool isSp;
+uniform float hover;
 
 uniform vec2 deviceorientation;
 
@@ -52,6 +54,13 @@ float noise(vec2 p){
     return t;
 }
 
+/**
+** Easing
+** t : 時間(進行度)
+** b : 開始の値(開始時の座標やスケールなど)
+** c : 開始と終了の値の差分
+** d : Tween(トゥイーン)の合計時間
+**/
 float easeInQuart(float t, float b, float c, float d) {
     float t_ = t / d;
     return c*t_ * t_ * t_ * t_ + b;
@@ -90,11 +99,23 @@ void main(){
     float inten = .02;
 
     // フェードイン・アウト機能
-    // float nextTime = mod(time+1.0,slideTimer);
-    // float opacity = 0.0;
-    float opacity = 1.0;
-    float num = 1.0;
+    // float nextTime = mod(time-startTime,0.5);
+    float nextTime = (time - startTime) * 2.0;
+    float opacity = 0.0;
     float noiseNum = noise(p + sin(time));
+
+    if( hover == 0.0 ) {
+        opacity = easeOutQuart( nextTime, 0.0, 1.0, 1.0 );
+    }
+    else if( hover == 1.0 ) {
+        opacity = 1.0;
+    }
+    else if( hover == 2.0 ) {
+        opacity = easeInQuart( 1.0 - nextTime, 0.0, 1.0, 1.0 );
+    }
+    else if( hover == 3.0 ) {
+        opacity = 0.0;
+    }
 
     // if( 0.05 < nextTime && nextTime < 1.05 ) {
     //     opacity = easeOutQuart( nextTime, 0.0, 1.0, 1.0 );
@@ -117,22 +138,22 @@ void main(){
 
         // if( isSp ) t = len, t2 = len;
 
-        i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x)) * num;
+        i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
 
         c += noiseNum * 1.0 / length( vec2(p.x / (sin(i.x+t)/inten), p.y / (cos(i.y+t)/inten)) );
 
-        destTex2 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005 * pow(num,1.0);
-        destTex3 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0002 * pow(num,1.0);
+        destTex2 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
+        destTex3 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0002;
     }
 
     c /= float(MAX_ITER);
     c = 1.5 - sqrt(c);
 
-    vec4 texColor = vec4(0.1, 0.1, 0.1, 1.);
+    vec4 texColor = vec4(0.15, 0.15, 0.15, 1.);
     // texColor.rgb *= (0.5/ (1.0 - (c + 0.05))) + (1.0-len*0.2);
 
     float ajustNum = 0.3 + (opacity*0.5); // 0.3 ~ 0.8
-    texColor.rgb *= ajustNum / (1.0 - (c)) - (0.1*(1.0-opacity)) + (len * opacity);
+    texColor.rgb *= ajustNum / (1.0 - (c)) - (0.1*(1.0-opacity)) + (1.5*len*opacity);
     // if( isSp ) texColor = vec4(1.0);
     // 光のゆらぎ
 

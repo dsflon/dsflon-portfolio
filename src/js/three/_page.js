@@ -16,7 +16,20 @@ let mouseTimer, mouseoverTimer, mouseoutTimer;
 let hoverFlag = false;
 
 let images = [
-	"/assets/images/sample.jpg"
+	"/assets/images/sample/01.jpg",
+	"/assets/images/sample/02.jpg",
+	"/assets/images/sample/03.jpg",
+	"/assets/images/sample/04.jpg",
+	"/assets/images/sample/05.jpg",
+	"/assets/images/sample/06.jpg",
+	"/assets/images/sample/07.jpg",
+	"/assets/images/sample/08.jpg",
+	"/assets/images/sample/09.jpg",
+	"/assets/images/sample/10.jpg",
+	"/assets/images/sample/11.jpg",
+	"/assets/images/sample/12.jpg",
+	"/assets/images/sample/13.jpg",
+	"/assets/images/sample/14.jpg"
 ]
 
 function Play() {
@@ -43,21 +56,22 @@ function Play() {
 
 	TweenMouseMove(mouse,mousePrev);
 
-	TARGET_ELM.onmousemove = (e) => {
+	window.onmousemove = (e) => {
 		mouse = { x: e.clientX, y: e.clientY };
 		clearTimeout(mouseTimer);
 		mouseTimer = setTimeout( () => {
-			if(!hoverFlag) TweenMouseMove(mouse,mousePrev)
+			// if(!hoverFlag) TweenMouseMove(mouse,mousePrev)
+			TweenMouseMove(mouse,mousePrev)
 		},10 )
 	}
-	TARGET_ELM.ontouchmove = (e) => {
-		mouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-		clearTimeout(mouseTimer);
-		mouseTimer = setTimeout( () => {
-			if(!hoverFlag) TweenMouseMove(mouse,mousePrev)
-		},10 )
-	}
-	TARGET_ELM.onmouseleave = (e) => {
+	// TARGET_ELM.ontouchmove = (e) => {
+	// 	mouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+	// 	clearTimeout(mouseTimer);
+	// 	mouseTimer = setTimeout( () => {
+	// 		if(!hoverFlag) TweenMouseMove(mouse,mousePrev)
+	// 	},10 )
+	// }
+	window.onmouseleave = (e) => {
 		mouse = { x: TARGET_ELM.scrollWidth/2, y: 100 };
 		TweenMouseMove(mouse,mousePrev)
 	}
@@ -78,6 +92,41 @@ function Play() {
 	// 		},300 )
 	// 	}
 	// }
+
+	let listItem = document.getElementsByClassName('list-item');
+
+	for (var i = 0; i < listItem.length; i++) {
+
+		listItem[i].onmouseover = (e) => {
+			clearTimeout(mouseoutTimer);
+			if( !hoverFlag ) {
+				let index = e.currentTarget.dataset.index;
+				mouseoverTimer = setTimeout( () => {
+					SCENE.uniforms.startTime.value = clock.getElapsedTime();
+					SCENE.uniforms.hover.value = 0.0;
+					updateTextureVideo(index)
+					hoverFlag = true;
+					setTimeout( () => {
+						SCENE.uniforms.hover.value = 1.0;
+					},500 )
+				},200 )
+			}
+		}
+		listItem[i].onmouseout = (e) => {
+			clearTimeout(mouseoverTimer);
+			if( hoverFlag ) {
+				hoverFlag = false;
+				mouseoutTimer = setTimeout( () => {
+					// console.log(2);
+					SCENE.uniforms.startTime.value = clock.getElapsedTime();
+					SCENE.uniforms.hover.value = 2.0;
+					setTimeout( () => {
+						SCENE.uniforms.hover.value = 3.0;
+					},500 )
+				},200 )
+			}
+		}
+	}
 
 }
 
@@ -105,6 +154,16 @@ function TweenMouseOver( hoverBefore, hoverAfter ) {
 		SCENE.uniforms.hover.value = hoverBefore.x / 100;
 		// console.log(SCENE.uniforms.hover.value);
 	}).start();
+
+}
+
+function updateTextureVideo(index) {
+
+    SCENE.uniforms.imgSize.value = new THREE.Vector2(
+        SCENE.textures[index].width,
+        SCENE.textures[index].height
+    )
+    SCENE.uniforms.texture.value = SCENE.textures[index].tex;
 
 }
 
