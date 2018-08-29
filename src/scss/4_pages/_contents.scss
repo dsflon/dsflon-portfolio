@@ -9,10 +9,54 @@
 
 	.list {
 
+		&.is_hover {
+			.list-item a:not(.is_hover) { filter: grayscale(100%) brightness(0.5); opacity: 0.8; }
+		}
+
 		.list-item {
 			margin-bottom: 60px;
+
+			a {
+				display: block;
+				height: 100%;
+				color: #FFF;
+				text-decoration: none;
+				line-height: 1.2;
+				transition: opacity 0.5s ease, filter 0.5s ease;
+				will-change: auto;
+				-webkit-backface-visibility:hidden;
+				backface-visibility:hidden;
+
+				* { pointer-events: none; }
+
+				.list-thumb {
+					margin-bottom: 20px;
+					// transition: transform 0.2s ease;
+					// will-change: transform;
+					// -webkit-backface-visibility:hidden;
+					// backface-visibility:hidden;
+					img { display: block; width: 100%; }
+				}
+				.list-date {
+					font-size: 14px;
+					margin-bottom: 5px;
+				}
+				.list-ttl {
+					font-family: $font_bold;
+					margin-bottom: 20px;
+				}
+				.list-skil {
+					font-size: 14px;
+				}
+
+				&.is_hover {
+					.list-thumb { box-shadow: 0px 0px 10px 0px rgba(#000,0.6); }
+					text-shadow: 0px 0px 20px rgba(#000,1.0);
+				}
+			}
+
 		}
-		
+
 	}
 
 }

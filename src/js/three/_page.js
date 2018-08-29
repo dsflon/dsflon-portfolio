@@ -93,39 +93,60 @@ function Play() {
 	// 	}
 	// }
 
-	let listItem = document.getElementsByClassName('list-item');
+	let list = document.getElementsByClassName('j-list');
+	let listItem = document.getElementsByClassName('j-list-link');
 
 	for (var i = 0; i < listItem.length; i++) {
 
 		listItem[i].onmouseover = (e) => {
 			clearTimeout(mouseoutTimer);
-			if( !hoverFlag ) {
-				let index = e.currentTarget.dataset.index;
-				mouseoverTimer = setTimeout( () => {
-					SCENE.uniforms.startTime.value = clock.getElapsedTime();
-					SCENE.uniforms.hover.value = 0.0;
-					updateTextureVideo(index)
-					hoverFlag = true;
-					setTimeout( () => {
-						SCENE.uniforms.hover.value = 1.0;
-					},500 )
-				},200 )
-			}
+			let target = e.currentTarget;
+			let index = target.dataset.index;
+
+			mouseoverTimer = setTimeout( () => {
+				SCENE.uniforms.startTime.value = clock.getElapsedTime();
+				SCENE.uniforms.hover.value = 0.0;
+				updateTextureVideo(index)
+				hoverFlag = true;
+
+				for (var j = 0; j < listItem.length; j++) {
+					listItem[j].classList.remove("is_hover");
+				}
+				for (var j = 0; j < list.length; j++) {
+					list[j].classList.remove("is_hover");
+					list[j].classList.add("is_hover");
+				}
+				target.classList.add("is_hover");
+
+				setTimeout( () => {
+					SCENE.uniforms.hover.value = 1.0;
+				},600 )
+			}, 300)
 		}
 		listItem[i].onmouseout = (e) => {
 			clearTimeout(mouseoverTimer);
+			let target = e.currentTarget;
+
 			if( hoverFlag ) {
-				hoverFlag = false;
 				mouseoutTimer = setTimeout( () => {
-					// console.log(2);
 					SCENE.uniforms.startTime.value = clock.getElapsedTime();
 					SCENE.uniforms.hover.value = 2.0;
+					hoverFlag = false;
+
+					for (var j = 0; j < listItem.length; j++) {
+						listItem[j].classList.remove("is_hover");
+					}
+					for (var j = 0; j < list.length; j++) {
+						list[j].classList.remove("is_hover");
+					}
+
 					setTimeout( () => {
 						SCENE.uniforms.hover.value = 3.0;
-					},500 )
-				},200 )
+					},600 )
+				}, 300)
 			}
 		}
+
 	}
 
 }
