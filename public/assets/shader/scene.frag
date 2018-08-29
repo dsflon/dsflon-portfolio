@@ -72,8 +72,39 @@ float easeOutQuart(float t, float b, float c, float d) {
     return -c * (t_ * t_ * t_ * t_ - 1.0) + b;
 }
 
+// vec2 fitPosition(vec2 tex, vec2 res, bool isSp) {
+//
+//     vec2 p = (tex * res * 2.0) - res;
+//     float aspect = imgSize.y / imgSize.x;
+//
+//     if( !isSp ) {
+//
+//         if( res.x * aspect > res.y ) { // 上下左右フィット
+//
+//             p /= max(res.x * aspect, res.y * aspect);
+//
+//         } else {
+//             if( res.x > res.y ) {
+//                 p /= min(res.x, res.y);
+//             } else {
+//                 p /= max(res.x, res.y);
+//             }
+//         }
+//     } else {
+//
+//         p /= max(res.x, res.y);
+//         // p.x *= res.y / res.x * 0.95;
+//
+//     };
+//
+//     return p;
+//
+// }
 
 void main(){
+
+    // vec2 p_ = fitPosition(vTexCoord, resolution, isSp);
+    // vec2 ajustCenter = (p_ / 2.0) + 0.5;
 
     vec2 ratio = vec2(
         min((resolution.x / resolution.y) / (imgSize.x / imgSize.y), 1.0),
@@ -87,19 +118,20 @@ void main(){
     vec2 p_ = uv;
     vec2 ajustCenter = p_ / 1.1;
 
-    float len = length(p_ - mouse * 2.0);
-    // if( isSp ) len = length(p_ - deviceorientation) * 4.0;
+    float len = length(p_ - mouse);
+    if( isSp ) len = length(p_ - deviceorientation) * 4.0;
 
-    float destTex2 = 1.0;
+    vec2 destTex = vec2(1.0,1.0);
+    // float destTex2 = 1.0;
     float destTex3 = 1.0;
 
-    vec2 p  = p_ * 10.0 - vec2(20.0);
+    vec2 p  = p_ * 8.0 - vec2(20.0);
     vec2 i = p;
     float c = 1.0;
     float inten = .02;
 
     // フェードイン・アウト機能
-    // float nextTime = mod(time-startTime,0.5);
+
     float nextTime = (time - startTime);
     float opacity = 0.0;
     float noiseNum = noise(vec2(2.0) + sin(time));
@@ -116,58 +148,58 @@ void main(){
     else if( hover == 3.0 ) {
         opacity = 0.0;
     }
+    // フェードイン・アウト機能
+
 
     // 光のゆらぎ
     for (int n = 1; n < MAX_ITER; n++) {
-        float t = (time * 0.2 + (opacity)) * (2.0 - (3.0 / float(n))) + len;
-        float t2 = (time * 0.05 + (opacity)) + len;
+        float t = (time * 0.2) * (2.0 - (3.0 / float(n))) + len;
+        float t2 = (time * 0.05) + len;
 
-        // if( isSp ) t = len, t2 = len;
+        if( isSp ) {
+            t *= 0.1 * len;
+        }
 
         i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
 
-        c += noiseNum * 1.0 / length( vec2(p.x / (sin(i.x+t)/inten), p.y / (cos(i.y+t)/inten)) );
+        c += 1.0 / length( vec2(p.x / (sin(i.x+t)/inten), p.y / (cos(i.y+t)/inten)) );
 
-        destTex2 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
-        destTex3 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0002;
+        // destTex2 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
+        destTex3 += (len*2.0) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
     }
 
     c /= float(MAX_ITER);
     c = 1.5 - sqrt(c);
 
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
-    // texColor.rgb *= (0.5/ (1.0 - (c + 0.05))) + (1.0-len*0.2);
-
     float ajustNum = 0.3;
-    texColor.rgb *= (0.3+pow(noiseNum,2.0)) * ajustNum / (1.0 - (c)) - (0.1*(1.0-opacity)) + (2.5*opacity);
-    // if( isSp ) texColor = vec4(1.0);
+    if( !isSp ) {
+        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
+    } else {
+        texColor.rgb *= ( ajustNum / (1.0 - c) + noise(p_)  );
+    }
     // 光のゆらぎ
 
-
     vec4 samplerColor = texture2D(texture, ajustCenter * destTex3);
-
-    float zure_rgb = 0.002;
-
-    float r = texture2D(texture, ajustCenter * destTex3 + zure_rgb ).r;
-    float g = texture2D(texture, ajustCenter * destTex3 ).g;
-    float b = texture2D(texture, ajustCenter * destTex3 - zure_rgb ).b;
-
-    // vec4 samplerColor_ = texture2D(texture, ajustCenter * destTex2 );
-    vec4 samplerColor_ = vec4(r, g, b, 1.0);
+    // vec4 samplerColor_ = texture2D(texture, ajustCenter * destTex2);
     // float r = samplerColor_.r;
     // float g = samplerColor_.g;
     // float b = samplerColor_.b;
+    //
     // float mono = (r + g + b) / 1.2;
-    //      samplerColor_ = vec4(mono,mono,mono,1.0);
+    //       // mono *= mono;
 
     float dest = 1.0;
-    // ホワイトノイズを生成 @@@
-    float noise = rnd(p + mod(time, 2.0));
-    dest *= noise * 0.2 + 0.9;// マイルド化
+    if( !isSp ) {
+        // ホワイトノイズを生成 @@@
+        // float noise = rnd(p + mod(time, 2.0));
+        // dest *= noise * 0.2 + 0.9;// マイルド化
 
-    // gl_FragColor = texColor * opacity;
-    // gl_FragColor =  dest * samplerColor_ * samplerColor * texColor * opacity;
-    gl_FragColor =  dest * samplerColor * texColor * opacity;
-    gl_FragColor += dest * texColor * (1. - opacity);
+        gl_FragColor =  samplerColor * texColor * opacity;
+        gl_FragColor += dest * texColor * (1. - opacity);
+    } else {
+        gl_FragColor = texColor;
+
+    }
 
 }

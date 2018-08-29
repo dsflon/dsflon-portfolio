@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import TWEEN from 'tween.js'
+import mgnUa from 'mgn-ua';
 
 import LoadShaderSource from './three/_loadShaderSource';
 import InitThree from './three/_initThree';
@@ -15,6 +16,8 @@ let initThree = new InitThree( elm );
 
 function init() {
 
+    let ua = new mgnUa();
+
 	let sceneObj = new CreateSceneImage(
 		sceneShaderCode.vs,
 		sceneShaderCode.fs,
@@ -26,6 +29,14 @@ function init() {
 			hover: {
 				type: 'f',
 				value: 0.1
+			},
+            deviceorientation: {
+                type: 'v2',
+                value: new THREE.Vector2(0.0, 0.0),
+            },
+			isSp: {
+				type: 'f',
+				value: ua.isSp
 			}
 		},
 		elm

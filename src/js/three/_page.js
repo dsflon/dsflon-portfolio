@@ -76,22 +76,11 @@ function Play() {
 		TweenMouseMove(mouse,mousePrev)
 	}
 
-	// for (var i = 0; i < btn.length; i++) {
-	// 	btn[i].onmouseover = (e) => {
-	// 		clearTimeout(mouseoutTimer);
-	// 		mouseoverTimer = setTimeout( () => {
-	// 			if(!hoverFlag) TweenMouseOver({x:0},{x:100});
-	// 			hoverFlag = true;
-	// 		},200 )
-	// 	}
-	// 	btn[i].onmouseout = (e) => {
-	// 		clearTimeout(mouseoverTimer);
-	// 		mouseoutTimer = setTimeout( () => {
-	// 			if(hoverFlag) TweenMouseOver({x:100},{x:0})
-	// 			hoverFlag = false;
-	// 		},300 )
-	// 	}
-	// }
+	window.addEventListener("deviceorientation", (e) => {
+		let gamma = e.gamma / 90;
+		let beta = e.beta / 90;
+		SCENE.uniforms.deviceorientation.value = new THREE.Vector2(gamma, beta)
+	}, false);
 
 	let list = document.getElementsByClassName('j-list');
 	let listItem = document.getElementsByClassName('j-list-link');
