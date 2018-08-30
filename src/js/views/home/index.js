@@ -12,7 +12,7 @@ import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
 // import Three from '../_set_three'
-import { Hover, FadeOutImg } from '../three'
+import { Hover, FadeOutImg, Dark } from '../three'
 
 class App extends React.Component {
 
@@ -28,12 +28,23 @@ class App extends React.Component {
 
     componentDidMount() {
         this.HoverCntl()
+
+        if( window.prevPage == "post" ) {
+            window.html.classList.add("is_disabled");
+            FadeOutImg( () => {
+                Dark(1.0)
+                window.html.classList.remove("is_disabled");
+            })
+        }
+
+        window.prevPage = "home";
     }
     componentDidUpdate() {
         this.HoverCntl()
     }
 
     HoverCntl() {
+        if( window.ua.isSp ) return false;
         Hover(
             this.listElm,
             this.sectionsElm,
@@ -52,9 +63,15 @@ class App extends React.Component {
         let target = e.currentTarget,
             index = target.dataset.index;
 
-        FadeOutImg( () => {
+        target.onmouseout = null;
+
+        if( !window.ua.isSp ){
+            FadeOutImg( () => {
+                this.history.push("/post/post_"+target.id+"?img="+index);
+            })
+        } else {
             this.history.push("/post/post_"+target.id+"?img="+index);
-        })
+        }
 
     }
 

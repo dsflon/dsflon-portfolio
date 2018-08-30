@@ -54,6 +54,10 @@ function Play() {
 		mouse = { x: TARGET_ELM.scrollWidth/2, y: 100 };
 		TweenMouseMove(mouse,mousePrev)
 	}
+	// window.onscroll = () => {
+	// 	let val = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+	// 	SCENE.uniforms.scroll.value = val * 0.001;
+	// }
 
 	window.addEventListener("deviceorientation", (e) => {
 		let gamma = e.gamma / 90;
@@ -103,11 +107,13 @@ function Hover(list,sections,callback,callback2) {
 				hoverFlag = true;
 
 				for (var j = 0; j < list.length; j++) {
-					list[j].classList.remove("is_hover");
+					if(list[j]) list[j].classList.remove("is_hover");
 				}
 				for (var j = 0; j < sections.length; j++) {
-					sections[j].classList.remove("is_hover");
-					sections[j].classList.add("is_hover");
+					if(sections[j]) {
+						sections[j].classList.remove("is_hover");
+						sections[j].classList.add("is_hover");
+					}
 				}
 				target.classList.add("is_hover");
 
@@ -123,10 +129,10 @@ function Hover(list,sections,callback,callback2) {
 					hoverFlag = false;
 
 					for (var j = 0; j < list.length; j++) {
-						list[j].classList.remove("is_hover");
+						if(list[j]) list[j].classList.remove("is_hover");
 					}
 					for (var j = 0; j < sections.length; j++) {
-						sections[j].classList.remove("is_hover");
+						if(sections[j]) sections[j].classList.remove("is_hover");
 					}
 
 					FadeOutImg(callback2);
@@ -154,7 +160,7 @@ function FadeInImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 1.0;
 		if(callback) callback()
-	},400 )
+	},800 )
 }
 function FadeOutImg (callback) {
 	SCENE.uniforms.startTime.value = clock.getElapsedTime();
@@ -162,7 +168,13 @@ function FadeOutImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 3.0;
 		if(callback) callback()
-	},400 )
+	},800 )
+}
+function ShowImg () {
+	SCENE.uniforms.hover.value = 1.0;
+}
+function HideImg (callback) {
+	SCENE.uniforms.hover.value = 3.0;
 }
 
 function StartThree(three) {
@@ -191,5 +203,7 @@ export {
 	UpdateTextureImage,
 	FadeInImg,
 	FadeOutImg,
+	ShowImg,
+	HideImg,
 	Dark
 };

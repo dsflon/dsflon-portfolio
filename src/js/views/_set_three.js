@@ -11,8 +11,6 @@ import CreatePostEffect from './three/_createPostEffect';
 
 function shaderInit(sceneCode,postCode,three) {
 
-    let ua = new mgnUa();
-
 	let scene = new CreateSceneImage(
 		sceneCode.vs,
 		sceneCode.fs,
@@ -29,13 +27,17 @@ function shaderInit(sceneCode,postCode,three) {
 				type: 'f',
 				value: 0.1
 			},
+			scroll: {
+				type: 'f',
+				value: 0.0
+			},
             deviceorientation: {
                 type: 'v2',
                 value: new THREE.Vector2(0.0, 0.0),
             },
 			isSp: {
 				type: 'f',
-				value: ua.isSp
+				value: window.ua.isSp
 			}
 		},
 		three.targetElm

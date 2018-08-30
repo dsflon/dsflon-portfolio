@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // Common functions
 import Fetch from './common/_fetch';
@@ -10,29 +11,37 @@ import Post from './views/post'
 import Three from './views/_set_three'
 import { StartThree } from './views/three'
 
+const GetPages = ({props}) => {
+    const {
+        match: { url, params: { page,postId } }
+    } = props;
 
-// const GetPages = (props) => {
-class GetPages extends React.Component {
+    switch (page) {
 
-    constructor(props) {
-        super(props);
+        case 'post':
+        return <Post props={props} postId={postId} />
+
+        default:
+        return <Home props={props} />
+
     }
+}
 
-    render() {
-        const {
-            match: { url, params: { page,postId } }
-        } = this.props;
-
-        switch (page) {
-
-            case 'post':
-            return <Post props={this.props} postId={postId} />
-
-            default:
-            return <Home props={this.props} />
-
-        }
-    }
+const PageTransition = (props) => {
+    const {
+        match: { params: { page } }
+    } = props;
+    // return <GetPages props={props} />
+    return (
+        <TransitionGroup>
+            <CSSTransition
+                key={page || "home"}
+                timeout={2000}
+                classNames={page || "home"}>
+                <GetPages props={props} />
+            </CSSTransition>
+        </TransitionGroup>
+    )
 
 }
 
@@ -87,7 +96,7 @@ class Root extends React.Component {
 
                     <Route
                         path="/:page?/:postId?"
-                        render={props => <GetPages list={this.state.list} {...props} />} />
+                        render={props => <PageTransition list={this.state.list} {...props} />} />
 
                     <footer id="footer">
                         <p className="address">©Copyrights dsflon. Allrights reserved.</p>

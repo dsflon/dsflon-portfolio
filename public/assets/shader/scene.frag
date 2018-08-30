@@ -6,6 +6,7 @@ varying vec2 vTexCoord; // 頂点シェーダから送られてきたテクス�
 uniform float startTime;
 uniform float time;
 uniform float slideTimer;
+uniform float scroll;
 uniform vec2 mouse; // マウスカーソル正規化済み座標 @@@
 uniform vec2 mousePrev; // マウスカーソル正規化済み座標 @@@
 uniform vec2 resolution;
@@ -101,19 +102,21 @@ void main(){
 
     // フェードイン・アウト機能
 
-    float nextTime = mod(time - startTime + 0.05, 0.5 + 0.05);
+    float timer = 1.0;
+
+    float nextTime = mod(time - startTime + 0.05, timer + 0.05);
     // float nextTime = time - startTime;
     float opacity = 0.0;
     float noiseNum = noise(vec2(2.0) + sin(time));
 
     if( hover == 0.0 ) {
-        opacity = easeOutQuart( nextTime, 0.0, 1.0, 0.5 );
+        opacity = easeOutQuart( nextTime, 0.0, 1.0, timer );
     }
     else if( hover == 1.0 ) {
         opacity = 1.0;
     }
     else if( hover == 2.0 ) {
-        opacity = easeInQuart( 0.5 - nextTime, 0.0, 1.0, 0.5 );
+        opacity = easeInQuart( timer - nextTime, 0.0, 1.0, timer );
     }
     else if( hover == 3.0 ) {
         opacity = 0.0;
@@ -123,11 +126,12 @@ void main(){
 
     // 光のゆらぎ
     for (int n = 1; n < MAX_ITER; n++) {
-        float t = (time * 0.2) * (2.0 - (3.0 / float(n))) + len;
-        float t2 = (time * 0.05) + len;
+        float t = (time * 0.2) * (2.0 - (3.0 / float(n))) + len + scroll;
+        float t2 = (time * 0.05) + len + scroll;
 
         if( isSp ) {
-            t = len*0.5;
+            t = len*0.5 + scroll;
+            t2 = len*0.5 + scroll;
         }
 
         i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
@@ -142,34 +146,17 @@ void main(){
     c = 1.5 - sqrt(c);
 
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
-    float ajustNum = 0.3 + (opacity * dark * dark);
+    float ajustNum = 0.3 + (opacity * dark);
     if( !isSp ) {
-        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
+        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity * dark);
     } else {
-        texColor.rgb *= ( 0.3 / (1.0 - c) + noise(p_) );
+        texColor.rgb *= ( 0.3 / (1.0 - c) + noise(p_) ) - (0.1*(1.0-opacity)) + (0.3*opacity);
     }
     // 光のゆらぎ
 
     vec4 samplerColor = texture2D(texture, ajustCenter * destTex3);
-    // vec4 samplerColor_ = texture2D(texture, ajustCenter * destTex2);
-    // float r = samplerColor_.r;
-    // float g = samplerColor_.g;
-    // float b = samplerColor_.b;
-    //
-    // float mono = (r + g + b) / 1.2;
-    //       // mono *= mono;
 
-    float dest = 1.0;
-    if( !isSp ) {
-        // ホワイトノイズを生成 @@@
-        // float noise = rnd(p + mod(time, 2.0));
-        // dest *= noise * 0.2 + 0.9;// マイルド化
-
-        gl_FragColor =  samplerColor * texColor * opacity;
-        gl_FragColor += dest * texColor * (1. - opacity);
-    } else {
-        gl_FragColor = texColor;
-
-    }
+        gl_FragColor = samplerColor * texColor * opacity;
+        gl_FragColor += texColor * (1. - opacity);
 
 }

@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+#post {
+
+	position: relative;
+	z-index: 2;
+	padding: 60px;
+
+    color: #FFF;
+    @include max(480) {
+		padding: 20px;
+    }
+
+}

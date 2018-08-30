@@ -9,6 +9,7 @@ import { createStore } from 'redux'
 import reducer from './reducers'
 
 import Root from './_root';
+import mgnUa from 'mgn-ua';
 
 /*
 ** Firebase Initialize
@@ -33,6 +34,7 @@ const initialState = {
 let store = createStore(reducer,initialState);
 
 window.html = document.getElementsByTagName('html')[0];
+window.ua = new mgnUa();
 
 /*
 ** Onload

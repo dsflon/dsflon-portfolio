@@ -11,7 +11,7 @@ import * as ActionCreators from '../../actions';
 import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
-import { FadeInImg, FadeOutImg, UpdateTextureImage, Dark } from '../three'
+import { ShowImg, FadeInImg, FadeOutImg, UpdateTextureImage, Dark } from '../three'
 
 class App extends React.Component {
 
@@ -20,21 +20,30 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        if( location.search && location.search.split("img=")[1] ) {
+
+        if( window.prevPage ) {
+            Dark(0.2);
+            UpdateTextureImage(location.search.split("img=")[1]);
             setTimeout( () => {
-                window.html.classList.remove("is_disabled");
-                Dark(0.2);
-                UpdateTextureImage(location.search.split("img=")[1]);
-            }, 300)
-            setTimeout( FadeInImg, 800)
+                window.scroll(0,0);
+            }, 1000);
+            setTimeout( FadeInImg, 1500)
+        } else {
+
+            if( location.search && location.search.split("img=")[1] ) {
+                setTimeout( () => {
+                    window.html.classList.remove("is_disabled");
+                    Dark(0.2);
+                    UpdateTextureImage(location.search.split("img=")[1]);
+                }, 300)
+                setTimeout( FadeInImg, 800)
+            }
+
         }
+
+        window.prevPage = "post";
     }
     componentWillUnmount() {
-        window.html.classList.add("is_disabled");
-        FadeOutImg( () => {
-            Dark(1.0)
-            window.html.classList.remove("is_disabled");
-        })
     }
     componentDidUpdate() {
     }
@@ -53,10 +62,14 @@ class App extends React.Component {
         return (
             <div>
 
-                <div id="bg" ref="bg"></div>
-
                 <div id="post">
-                    post
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
+                    post<br />post<br />post<br />post<br />post<br />
                 </div>
 
             </div>
