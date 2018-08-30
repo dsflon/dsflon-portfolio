@@ -172,7 +172,7 @@ void main(){
     c = 1.5 - sqrt(c);
 
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
-    float ajustNum = 0.3;
+    float ajustNum = 0.3 + (opacity);
     if( !isSp ) {
         texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
     } else {

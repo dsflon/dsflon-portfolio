@@ -4,30 +4,23 @@
 //------------------------------------------------------------------------------
 
 	@font-face {
-	    font-family: 'NotoSansCJKjp-DemiLight';
-	    font-style: normal;
-	    src: url('/assets/fonts/NotoSansCJKjp-DemiLight.woff2') format('woff2'),
-			 url('/assets/fonts/NotoSansCJKjp-DemiLight.woff') format('woff');
+		font-family: 'NotoSansCJKjp-DemiLight';
+		font-style: normal;
+		// font-weight: 400;
+		src: url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-DemiLight.woff2) format('woff2'),
+		url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-DemiLight.woff) format('woff'),
+		url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-DemiLight.otf) format('opentype');
 	}
 	@font-face {
-	    font-family: 'NotoSansCJKjp-Bold';
-	    font-style: normal;
-	    src: url('/assets/fonts/NotoSansCJKjp-Bold.woff2') format('woff2'),
-			 url('/assets/fonts/NotoSansCJKjp-Bold.woff') format('woff');
+		font-family: 'NotoSansCJKjp-Bold';
+		font-style: normal;
+		// font-weight: 500;
+		src: url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.woff2) format('woff2'),
+		url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.woff) format('woff'),
+		url(//fonts.gstatic.com/ea/notosansjapanese/v6/NotoSansJP-Bold.otf) format('opentype');
 	}
 
 	@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,700);
-
-	// @font-face {
-	// 	font-family: 'Roboto Mono';
-	// 	src: url('/assets/fonts/RobotoMono-Regular.woff2') format('woff2'),
-	// 		 url('/assets/fonts/RobotoMono-Regular.woff') format('woff'); /* Legacy iOS */
-	// }
-	// @font-face {
-	// 	font-family: 'Roboto Mono bold';
-	// 	src: url('/assets/fonts/RobotoMono-Bold.woff2') format('woff2'),
-	// 		 url('/assets/fonts/RobotoMono-Bold.woff') format('woff'); /* Legacy iOS */
-	// }
 
 	$font_base: 'Roboto Mono', 'NotoSansCJKjp-DemiLight','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 	$font_bold: 'Roboto Mono bold', 'NotoSansCJKjp-Bold', 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
