@@ -4,35 +4,17 @@ import TWEEN from 'tween.js'
 let INIT_THREEE,
 	SCENE,
 	POST,
-	TARGET_ELM;
+	TARGET_ELM,
+	LIST_ELM,
+	SECTIONS_ELM;
 
-let clock = new THREE.Clock();
-// let TARGET_ELM = document.getElementById('bg');
-// let btn = TARGET_ELM.getElementsByClassName('a-btn');
-
-let mouse, mousePrev;
-
-let mouseTimer, mouseoverTimer, mouseoutTimer;
-let hoverFlag = false;
-
-let images = [
-	"/assets/images/sample/01.jpg",
-	"/assets/images/sample/02.jpg",
-	"/assets/images/sample/03.png",
-	"/assets/images/sample/04.png",
-	"/assets/images/sample/05.jpg",
-	"/assets/images/sample/06.jpg",
-	"/assets/images/sample/07.jpg",
-	"/assets/images/sample/08.png",
-	"/assets/images/sample/09.jpg",
-	"/assets/images/sample/10.jpg",
-	"/assets/images/sample/11.png",
-	"/assets/images/sample/12.jpg",
-	"/assets/images/sample/13.jpg",
-	"/assets/images/sample/14.jpg"
-]
+let mouse, mousePrev, mouseTimer;
+let mouseoverTimer, mouseoutTimer,
+	hoverFlag = false;
 
 function Play() {
+
+	let clock = new THREE.Clock();
 
 	//Meshを生成
 	SCENE.init();
@@ -54,13 +36,10 @@ function Play() {
 		})
 	};
 
-	TweenMouseMove(mouse,mousePrev);
-
 	window.onmousemove = (e) => {
 		mouse = { x: e.clientX, y: e.clientY };
 		clearTimeout(mouseTimer);
 		mouseTimer = setTimeout( () => {
-			// if(!hoverFlag) TweenMouseMove(mouse,mousePrev)
 			TweenMouseMove(mouse,mousePrev)
 		},10 )
 	}
@@ -82,12 +61,9 @@ function Play() {
 		SCENE.uniforms.deviceorientation.value = new THREE.Vector2(gamma, beta)
 	}, false);
 
-	let list = document.getElementsByClassName('j-list');
-	let listItem = document.getElementsByClassName('j-list-link');
+	for (var i = 0; i < LIST_ELM.length; i++) {
 
-	for (var i = 0; i < listItem.length; i++) {
-
-		listItem[i].onmouseover = (e) => {
+		LIST_ELM[i].onmouseover = (e) => {
 			clearTimeout(mouseoutTimer);
 			let target = e.currentTarget;
 			let index = target.dataset.index;
@@ -98,12 +74,12 @@ function Play() {
 				updateTextureVideo(index)
 				hoverFlag = true;
 
-				for (var j = 0; j < listItem.length; j++) {
-					listItem[j].classList.remove("is_hover");
+				for (var j = 0; j < LIST_ELM.length; j++) {
+					LIST_ELM[j].classList.remove("is_hover");
 				}
-				for (var j = 0; j < list.length; j++) {
-					list[j].classList.remove("is_hover");
-					list[j].classList.add("is_hover");
+				for (var j = 0; j < SECTIONS_ELM.length; j++) {
+					SECTIONS_ELM[j].classList.remove("is_hover");
+					SECTIONS_ELM[j].classList.add("is_hover");
 				}
 				target.classList.add("is_hover");
 
@@ -112,7 +88,7 @@ function Play() {
 				},600 )
 			}, 300)
 		}
-		listItem[i].onmouseout = (e) => {
+		LIST_ELM[i].onmouseout = (e) => {
 			clearTimeout(mouseoverTimer);
 			let target = e.currentTarget;
 
@@ -122,11 +98,11 @@ function Play() {
 					SCENE.uniforms.hover.value = 2.0;
 					hoverFlag = false;
 
-					for (var j = 0; j < listItem.length; j++) {
-						listItem[j].classList.remove("is_hover");
+					for (var j = 0; j < LIST_ELM.length; j++) {
+						LIST_ELM[j].classList.remove("is_hover");
 					}
-					for (var j = 0; j < list.length; j++) {
-						list[j].classList.remove("is_hover");
+					for (var j = 0; j < SECTIONS_ELM.length; j++) {
+						SECTIONS_ELM[j].classList.remove("is_hover");
 					}
 
 					setTimeout( () => {
@@ -162,7 +138,6 @@ function TweenMouseOver( hoverBefore, hoverAfter ) {
 	.easing(TWEEN.Easing.Quintic.Out)
 	.onUpdate(function() {
 		SCENE.uniforms.hover.value = hoverBefore.x / 100;
-		// console.log(SCENE.uniforms.hover.value);
 	}).start();
 
 }
@@ -177,18 +152,19 @@ function updateTextureVideo(index) {
 
 }
 
+function PageFunction(three) {
 
-function PageFunction( three, sceneObj, postObj, targetElm ) {
+	INIT_THREEE = three.init;
+	TARGET_ELM = three.targetElm;
+	LIST_ELM = three.list;
+	SECTIONS_ELM = three.sections;
+	SCENE = three.scene;
+	POST = three.post;
 
-	INIT_THREEE = three;
-	SCENE = sceneObj;
-	POST = postObj;
-	TARGET_ELM = targetElm;
-
-	mouse = {x: targetElm.scrollWidth/2, y: targetElm.scrollHeight/2};
+	mouse = {x: TARGET_ELM.scrollWidth/2, y: TARGET_ELM.scrollHeight/2};
 	mousePrev = {x: 0, y: 0};
 
-	SCENE.initImageObj(images, () => {
+	SCENE.initImageObj(three.imageList, () => {
 		Play();
 	},(i) => {
 	});

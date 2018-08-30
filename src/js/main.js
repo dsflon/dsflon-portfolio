@@ -1,91 +1,59 @@
-import * as THREE from 'three';
-import TWEEN from 'tween.js'
-import mgnUa from 'mgn-ua';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
-import LoadShaderSource from './three/_loadShaderSource';
-import InitThree from './three/_initThree';
-import CreateSceneImage from './three/_createSceneObject';
-import CreatePostEffect from './three/_createPostEffect';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import PageFunction from './three/_page';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+import reducer from './reducers'
 
-let sceneShaderCode, postShaderCode;
+import Root from './_root';
 
-let elm = document.getElementById('bg');
-let initThree = new InitThree( elm );
+/*
+** Firebase Initialize
+*/
+// const config = {
+//     apiKey: "AIzaSyAoCKwZTDg2cnk4EL__2F551peIH409Mug",
+//     authDomain: "device-rental.firebaseapp.com",
+//     databaseURL: "https://device-rental.firebaseio.com",
+//     projectId: "device-rental",
+//     storageBucket: "",
+//     messagingSenderId: "911109915400"
+// };
+// firebase.initializeApp(config);
 
-function init() {
 
-    let ua = new mgnUa();
+/*
+** Create Store
+*/
+const initialState = {
+    list: null
+};
+let store = createStore(reducer,initialState);
 
-	let sceneObj = new CreateSceneImage(
-		sceneShaderCode.vs,
-		sceneShaderCode.fs,
-		{
-			startTime: {
-				type: 'f',
-				value: 0
-			},
-			hover: {
-				type: 'f',
-				value: 0.1
-			},
-            deviceorientation: {
-                type: 'v2',
-                value: new THREE.Vector2(0.0, 0.0),
-            },
-			isSp: {
-				type: 'f',
-				value: ua.isSp
-			}
-		},
-		elm
-	);
-	let postObj = new CreatePostEffect(
-		initThree.rendererOR.texture,
-		postShaderCode.vs,
-		postShaderCode.fs
-	);
 
-    PageFunction( initThree, sceneObj, postObj, elm );
 
-	////
-
-}
-
-////
-
-function LoadShader() {
-
-	initThree.run = false;
-	sceneShaderCode = null;
-	postShaderCode = null;
-
-	new LoadShaderSource(
-		"/assets/shader/scene.vert",
-		"/assets/shader/scene.frag",
-		(shader) => {
-			sceneShaderCode = shader;
-			loadCheck();
-		}
-	);
-	new LoadShaderSource(
-		"/assets/shader/post.vert",
-		"/assets/shader/post.frag",
-		(shader) => {
-			postShaderCode = shader;
-			loadCheck();
-		}
-	);
-
-}
-
-function loadCheck(){
-	if( sceneShaderCode != null && postShaderCode != null ){
-		init()
-	}
-}
-
+/*
+** Onload
+*/
 window.onload = () => {
-	if(elm.classList) LoadShader();
-}
+
+    /* Firebase Initialize */
+    // window.database = firebase.database();
+    //
+    // window.userRef = window.database.ref('users');
+    // window.devideRef = window.database.ref('devices');
+    /* Firebase Initialize */
+
+    /*
+    ** React
+    */
+    ReactDOM.render(
+        <Provider store={store}>
+            <Root />
+        </Provider>,
+        document.getElementById('app')
+    );
+
+};
