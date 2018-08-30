@@ -11,7 +11,8 @@ import * as ActionCreators from '../../actions';
 import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
-import Three from '../_three'
+// import Three from '../_set_three'
+import { Hover, FadeOutImg } from '../three'
 
 class App extends React.Component {
 
@@ -22,40 +23,41 @@ class App extends React.Component {
 
         this.listElm = [];
         this.sectionsElm = [];
-    }
-
-    componentWillMount() {
+        this.clickable = false
     }
 
     componentDidMount() {
-        Fetch("/api/list.json", null, (json) => {
-            this.actions.List(json.data);
-            this.SetImageList(json.data)
-        },(e) => {
-            console.error(e)
-        });
+        this.HoverCntl()
     }
     componentDidUpdate() {
+        this.HoverCntl()
     }
 
-    SetImageList(data) {
+    HoverCntl() {
+        Hover(
+            this.listElm,
+            this.sectionsElm,
+            () => { this.clickable = true; },
+            () => { this.clickable = false; }
+        )
+    }
 
-        let imageList = [];
+    ClickList(e) {
 
-        for (var i = 0; i < data.length; i++) {
-            let list = data[i].list;
-            for (var j = 0; j < list.length; j++) {
-                imageList.push(list[j].thumb)
-            }
-        }
+        e.preventDefault();
 
-        Three( {
-            bg: this.refs.bg,
-            list: this.listElm,
-            sections: this.sectionsElm
-        }, imageList);
+        // if(!this.clickable) return false;
+        window.html.classList.add("is_disabled");
+
+        let target = e.currentTarget,
+            index = target.dataset.index;
+
+        FadeOutImg( () => {
+            this.history.push("/post/post_"+target.id+"?img="+index);
+        })
 
     }
+
     SetList(data) {
 
         let list = [];
@@ -63,21 +65,24 @@ class App extends React.Component {
         for (var i = 0; i < data.length; i++) {
             list.push(
                 <li key={i} className="list-item">
-                    <a
-                        href="#"
-                        className="list-link"
+                    <button
+                        id={data[i].id}
+                        data-index={this.imageIndex}
+                        className={ "list-link " + (data[i].lock ? "is_lock" : "") }
                         ref={el => {this.listElm.push(el)}}
-                        data-index={this.imageIndex}>
+                        onClick={this.ClickList.bind(this)}>
                         <figure
                             className="list-thumb"
                             style={{"backgroundImage": "url(" + data[i].thumb + ")"}}>
                         </figure>
                         <div className="list-txts">
-                            <p className="list-date">{data[i].data}</p>
-                            <h3 className="list-ttl">{data[i].title}</h3>
+                            <p className="list-date">{data[i].date}</p>
+                            <h3 className="list-ttl">
+                                { data[i].lock ? "***" : data[i].title }
+                            </h3>
                             <p className="list-skills">{data[i].skills}</p>
                         </div>
-                    </a>
+                    </button>
                 </li>
             )
 
@@ -114,18 +119,14 @@ class App extends React.Component {
 
         this.state = this.props.state;
         this.actions = this.props.actions;
-        //
-        // let {
-        //     match,
-        //     history,
-        // } = this.props;
+        this.history = this.props.props.history;
 
-        let list = this.state.list ? this.SetSection(this.state.list) : null;
+        let list = this.props.props.list;
+            list = list ? this.SetSection(list) : null;
 
         return (
-            <div>
 
-                <div id="bg" ref="bg"></div>
+            <div>
 
                 <div id="hero">
                     <div className="hero-inner">
@@ -143,6 +144,7 @@ class App extends React.Component {
                 </div>
 
             </div>
+
         );
 
     }

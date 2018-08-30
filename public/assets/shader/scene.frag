@@ -12,6 +12,7 @@ uniform vec2 resolution;
 uniform vec2 imgSize;
 uniform bool isSp;
 uniform float hover;
+uniform float dark;
 
 uniform vec2 deviceorientation;
 
@@ -174,9 +175,9 @@ void main(){
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
     float ajustNum = 0.3 + (opacity);
     if( !isSp ) {
-        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
+        texColor.rgb *= (0.5+pow(noiseNum,3.0) * dark) * ajustNum * dark / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
     } else {
-        texColor.rgb *= ( ajustNum / (1.0 - c) + noise(p_)  );
+        texColor.rgb *= ( 0.3 / (1.0 - c) + noise(p_) );
     }
     // 光のゆらぎ
 

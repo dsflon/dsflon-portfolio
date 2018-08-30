@@ -4,17 +4,15 @@ import TWEEN from 'tween.js'
 let INIT_THREEE,
 	SCENE,
 	POST,
-	TARGET_ELM,
-	LIST_ELM,
-	SECTIONS_ELM;
+	TARGET_ELM;
 
 let mouse, mousePrev, mouseTimer;
 let mouseoverTimer, mouseoutTimer,
 	hoverFlag = false;
 
-function Play() {
+let clock = new THREE.Clock();
 
-	let clock = new THREE.Clock();
+function Play() {
 
 	//Meshを生成
 	SCENE.init();
@@ -35,6 +33,8 @@ function Play() {
 			POST.resize();
 		})
 	};
+
+	TweenMouseMove(mouse,mousePrev)
 
 	window.onmousemove = (e) => {
 		mouse = { x: e.clientX, y: e.clientY };
@@ -60,59 +60,6 @@ function Play() {
 		let beta = e.beta / 90;
 		SCENE.uniforms.deviceorientation.value = new THREE.Vector2(gamma, beta)
 	}, false);
-
-	for (var i = 0; i < LIST_ELM.length; i++) {
-
-		LIST_ELM[i].onmouseover = (e) => {
-			clearTimeout(mouseoutTimer);
-			let target = e.currentTarget;
-			let index = target.dataset.index;
-
-			mouseoverTimer = setTimeout( () => {
-				SCENE.uniforms.startTime.value = clock.getElapsedTime();
-				SCENE.uniforms.hover.value = 0.0;
-				updateTextureVideo(index)
-				hoverFlag = true;
-
-				for (var j = 0; j < LIST_ELM.length; j++) {
-					LIST_ELM[j].classList.remove("is_hover");
-				}
-				for (var j = 0; j < SECTIONS_ELM.length; j++) {
-					SECTIONS_ELM[j].classList.remove("is_hover");
-					SECTIONS_ELM[j].classList.add("is_hover");
-				}
-				target.classList.add("is_hover");
-
-				setTimeout( () => {
-					SCENE.uniforms.hover.value = 1.0;
-				},600 )
-			}, 300)
-		}
-		LIST_ELM[i].onmouseout = (e) => {
-			clearTimeout(mouseoverTimer);
-			let target = e.currentTarget;
-
-			if( hoverFlag ) {
-				mouseoutTimer = setTimeout( () => {
-					SCENE.uniforms.startTime.value = clock.getElapsedTime();
-					SCENE.uniforms.hover.value = 2.0;
-					hoverFlag = false;
-
-					for (var j = 0; j < LIST_ELM.length; j++) {
-						LIST_ELM[j].classList.remove("is_hover");
-					}
-					for (var j = 0; j < SECTIONS_ELM.length; j++) {
-						SECTIONS_ELM[j].classList.remove("is_hover");
-					}
-
-					setTimeout( () => {
-						SCENE.uniforms.hover.value = 3.0;
-					},600 )
-				}, 300)
-			}
-		}
-
-	}
 
 }
 
@@ -142,7 +89,57 @@ function TweenMouseOver( hoverBefore, hoverAfter ) {
 
 }
 
-function updateTextureVideo(index) {
+function Hover(list,sections,callback,callback2) {
+
+	for (var i = 0; i < list.length; i++) {
+
+		list[i].onmouseover = (e) => {
+			clearTimeout(mouseoutTimer);
+			let target = e.currentTarget;
+			let index = target.dataset.index;
+
+			mouseoverTimer = setTimeout( () => {
+				UpdateTextureImage(index)
+				hoverFlag = true;
+
+				for (var j = 0; j < list.length; j++) {
+					list[j].classList.remove("is_hover");
+				}
+				for (var j = 0; j < sections.length; j++) {
+					sections[j].classList.remove("is_hover");
+					sections[j].classList.add("is_hover");
+				}
+				target.classList.add("is_hover");
+
+				FadeInImg(callback);
+			}, 300)
+		}
+		list[i].onmouseout = (e) => {
+			clearTimeout(mouseoverTimer);
+			let target = e.currentTarget;
+
+			if( hoverFlag ) {
+				mouseoutTimer = setTimeout( () => {
+					hoverFlag = false;
+
+					for (var j = 0; j < list.length; j++) {
+						list[j].classList.remove("is_hover");
+					}
+					for (var j = 0; j < sections.length; j++) {
+						sections[j].classList.remove("is_hover");
+					}
+
+					FadeOutImg(callback2);
+				}, 300)
+			}
+		}
+
+	}
+
+}
+
+
+function UpdateTextureImage(index) {
 
     SCENE.uniforms.imgSize.value = new THREE.Vector2(
         SCENE.textures[index].width,
@@ -151,13 +148,27 @@ function updateTextureVideo(index) {
     SCENE.uniforms.texture.value = SCENE.textures[index].tex;
 
 }
+function FadeInImg (callback) {
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.hover.value = 0.0;
+	setTimeout( () => {
+		SCENE.uniforms.hover.value = 1.0;
+		if(callback) callback()
+	},600 )
+}
+function FadeOutImg (callback) {
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.hover.value = 2.0;
+	setTimeout( () => {
+		SCENE.uniforms.hover.value = 3.0;
+		if(callback) callback()
+	},600 )
+}
 
-function PageFunction(three) {
+function StartThree(three) {
 
 	INIT_THREEE = three.init;
 	TARGET_ELM = three.targetElm;
-	LIST_ELM = three.list;
-	SECTIONS_ELM = three.sections;
 	SCENE = three.scene;
 	POST = three.post;
 
@@ -170,5 +181,15 @@ function PageFunction(three) {
 	});
 
 }
+function Dark(num) {
+	SCENE.uniforms.dark.value = num;
+}
 
-export default PageFunction;
+export {
+	StartThree,
+	Hover,
+	UpdateTextureImage,
+	FadeInImg,
+	FadeOutImg,
+	Dark
+};

@@ -4,40 +4,60 @@
             "title": "prototypes / works",
             "list": [
                 {
+                    "id": "1",
                     "thumb": "/assets/images/sample/01.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "2",
                     "thumb": "/assets/images/sample/02.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "3",
                     "thumb": "/assets/images/sample/03.png",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": true
                 },
                 {
+                    "id": "4",
                     "thumb": "/assets/images/sample/04.png",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": true
                 },
                 {
+                    "id": "5",
                     "thumb": "/assets/images/sample/05.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "6",
                     "thumb": "/assets/images/sample/06.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
+                },
+                {
+                    "id": "7",
+                    "thumb": "/assets/images/sample/07.jpg",
+                    "date": "2018.08",
+                    "title": "タイトルが入ります。",
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 }
             ]
         },
@@ -46,52 +66,60 @@
             "title": "project",
             "list": [
                 {
-                    "thumb": "/assets/images/sample/07.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
-                },
-                {
+                    "id": "8",
                     "thumb": "/assets/images/sample/08.png",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "9",
                     "thumb": "/assets/images/sample/09.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "10",
                     "thumb": "/assets/images/sample/10.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "11",
                     "thumb": "/assets/images/sample/11.png",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "12",
                     "thumb": "/assets/images/sample/12.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "13",
                     "thumb": "/assets/images/sample/13.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 },
                 {
+                    "id": "14",
                     "thumb": "/assets/images/sample/14.jpg",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4"
+                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
+                    "lock": false
                 }
             ]
         }

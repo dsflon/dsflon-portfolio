@@ -32,7 +32,7 @@ const initialState = {
 };
 let store = createStore(reducer,initialState);
 
-
+window.html = document.getElementsByTagName('html')[0];
 
 /*
 ** Onload

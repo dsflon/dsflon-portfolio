@@ -7,7 +7,7 @@ import InitThree from './three/_initThree';
 import CreateSceneImage from './three/_createSceneObject';
 import CreatePostEffect from './three/_createPostEffect';
 
-import PageFunction from './three';
+// import PageFunction from './three';
 
 function shaderInit(sceneCode,postCode,three) {
 
@@ -20,6 +20,10 @@ function shaderInit(sceneCode,postCode,three) {
 			startTime: {
 				type: 'f',
 				value: 0
+			},
+			dark: {
+				type: 'f',
+				value: 1.0
 			},
 			hover: {
 				type: 'f',
@@ -45,19 +49,18 @@ function shaderInit(sceneCode,postCode,three) {
     three["scene"] = scene;
     three["post"] = post;
 
-    PageFunction(three);
+    // PageFunction(three);
+    return(three);
 
 }
 
 ////
 
-function LoadShader( elms, imageList ) {
+function LoadShader( targetElm, imageList, callback ) {
 
     let three = {
-        "init": new InitThree( elms.bg ),
-        "targetElm": elms.bg,
-        "list": elms.list,
-        "sections": elms.sections,
+        "init": new InitThree( targetElm ),
+        "targetElm": targetElm,
         "imageList": imageList
     }
 
@@ -85,7 +88,8 @@ function LoadShader( elms, imageList ) {
 
 	function loadCheck() {
         if( sceneCode != null && postCode != null ) {
-            shaderInit(sceneCode, postCode, three);
+            let threeObj = shaderInit(sceneCode, postCode, three);
+            if(callback) callback(threeObj);
         }
     }
 
