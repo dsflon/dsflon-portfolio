@@ -73,39 +73,7 @@ float easeOutQuart(float t, float b, float c, float d) {
     return -c * (t_ * t_ * t_ * t_ - 1.0) + b;
 }
 
-// vec2 fitPosition(vec2 tex, vec2 res, bool isSp) {
-//
-//     vec2 p = (tex * res * 2.0) - res;
-//     float aspect = imgSize.y / imgSize.x;
-//
-//     if( !isSp ) {
-//
-//         if( res.x * aspect > res.y ) { // 上下左右フィット
-//
-//             p /= max(res.x * aspect, res.y * aspect);
-//
-//         } else {
-//             if( res.x > res.y ) {
-//                 p /= min(res.x, res.y);
-//             } else {
-//                 p /= max(res.x, res.y);
-//             }
-//         }
-//     } else {
-//
-//         p /= max(res.x, res.y);
-//         // p.x *= res.y / res.x * 0.95;
-//
-//     };
-//
-//     return p;
-//
-// }
-
 void main(){
-
-    // vec2 p_ = fitPosition(vTexCoord, resolution, isSp);
-    // vec2 ajustCenter = (p_ / 2.0) + 0.5;
 
     vec2 ratio = vec2(
         min((resolution.x / resolution.y) / (imgSize.x / imgSize.y), 1.0),
@@ -133,18 +101,19 @@ void main(){
 
     // フェードイン・アウト機能
 
-    float nextTime = (time - startTime);
+    float nextTime = mod(time - startTime + 0.05, 0.5 + 0.05);
+    // float nextTime = time - startTime;
     float opacity = 0.0;
     float noiseNum = noise(vec2(2.0) + sin(time));
 
     if( hover == 0.0 ) {
-        opacity = easeOutQuart( nextTime, 0.0, 1.0, 1.0 );
+        opacity = easeOutQuart( nextTime, 0.0, 1.0, 0.5 );
     }
     else if( hover == 1.0 ) {
         opacity = 1.0;
     }
     else if( hover == 2.0 ) {
-        opacity = easeInQuart( 1.0 - nextTime, 0.0, 1.0, 1.0 );
+        opacity = easeInQuart( 0.5 - nextTime, 0.0, 1.0, 0.5 );
     }
     else if( hover == 3.0 ) {
         opacity = 0.0;
@@ -158,7 +127,7 @@ void main(){
         float t2 = (time * 0.05) + len;
 
         if( isSp ) {
-            t *= 0.1 * len;
+            t = len*0.5;
         }
 
         i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
@@ -173,9 +142,9 @@ void main(){
     c = 1.5 - sqrt(c);
 
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
-    float ajustNum = 0.3 + (opacity);
+    float ajustNum = 0.3 + (opacity * dark * dark);
     if( !isSp ) {
-        texColor.rgb *= (0.5+pow(noiseNum,3.0) * dark) * ajustNum * dark / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
+        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity);
     } else {
         texColor.rgb *= ( 0.3 / (1.0 - c) + noise(p_) );
     }

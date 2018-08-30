@@ -154,7 +154,7 @@ function FadeInImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 1.0;
 		if(callback) callback()
-	},600 )
+	},400 )
 }
 function FadeOutImg (callback) {
 	SCENE.uniforms.startTime.value = clock.getElapsedTime();
@@ -162,7 +162,7 @@ function FadeOutImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 3.0;
 		if(callback) callback()
-	},600 )
+	},400 )
 }
 
 function StartThree(three) {

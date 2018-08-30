@@ -23,16 +23,16 @@ class App extends React.Component {
         if( location.search && location.search.split("img=")[1] ) {
             setTimeout( () => {
                 window.html.classList.remove("is_disabled");
-                Dark(0.4);
+                Dark(0.2);
                 UpdateTextureImage(location.search.split("img=")[1]);
-            }, 100)
-            setTimeout( FadeInImg, 1000)
+            }, 300)
+            setTimeout( FadeInImg, 800)
         }
     }
     componentWillUnmount() {
         window.html.classList.add("is_disabled");
-        Dark(1.0)
         FadeOutImg( () => {
+            Dark(1.0)
             window.html.classList.remove("is_disabled");
         })
     }
