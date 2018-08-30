@@ -7,6 +7,9 @@
     width: 100%; height: 90vh;
     mix-blend-mode: difference;
     // mix-blend-mode: soft-light;
+    @include max(480) {
+        height: 86vh;
+    }
 
     .hero-inner {
         position: absolute;

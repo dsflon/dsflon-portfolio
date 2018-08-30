@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+$margin: 60;
+$margin_min: 30;
+
 #contents {
 
 	position: relative;
@@ -7,7 +10,30 @@
 
 	padding: 0 60px;
 
+	@include max(1024) {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+
+	@include max(480) {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
 	.list {
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+
+		margin-left: -1 * $margin/2 + px;
+		margin-right: -1 * $margin/2 + px;
+		margin-bottom: 60px;
+
+		@include max(1024) {
+			margin-left: -1 * $margin_min/2 + px;
+			margin-right: -1 * $margin_min/2 + px;
+		}
 
 		&.is_hover {
 			.list-item a:not(.is_hover) {
@@ -24,7 +50,19 @@
 		}
 
 		.list-item {
+
+			width: calc( 25% - #{$margin}px );
+			padding-left: $margin/2 + px;
+			padding-right: $margin/2 + px;
 			margin-bottom: 60px;
+
+			@include max(1160) { width: calc( 33.33% - #{$margin}px ); }
+			@include max(1024) {
+				width: calc( 50% - #{$margin_min}px );
+				padding-left: $margin_min/2 + px;
+				padding-right: $margin_min/2 + px;
+			}
+			@include max(480) { width: 100%; }
 
 			a {
 				display: block;

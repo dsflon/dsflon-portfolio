@@ -62,7 +62,7 @@ class App extends React.Component {
 
         for (var i = 0; i < data.length; i++) {
             list.push(
-                <li key={i} className="f-flex4_l f-flex3 f-flex12_s list-item">
+                <li key={i} className="list-item">
                     <a
                         href="#"
                         className="list-link"
@@ -98,7 +98,7 @@ class App extends React.Component {
 
                     <h2 className="a-ttl">{data[i].title}</h2>
 
-                    <ul className="f-flex list" ref={el => {this.sectionsElm.push(el)}}>
+                    <ul className="list" ref={el => {this.sectionsElm.push(el)}}>
                         { this.SetList(data[i].list) }
                     </ul>
 

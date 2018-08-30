@@ -11,10 +11,19 @@ h2.a-ttl {
     &:before {
         content: "";
         display: inline-block;
-        width: 15px; height: 2px;
+        width: 15px; height: 1px;
         background: #FFF;
         vertical-align: middle;
         margin-right: 10px;
         margin-left: -25px;
+    }
+    @include max(480) {
+        font-size: 24px;
+        margin-bottom: 20px;
+        &:before {
+            width: 10px;
+            margin-right: 5px;
+            margin-left: -15px;
+        }
     }
 }

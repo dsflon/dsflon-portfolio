@@ -25,7 +25,13 @@ const GetPages = (props) => {
 const Root = () => (
 
     <Router>
-        <Route path="/:page?" component={GetPages} />
+        <div>
+            <Route path="/:page?" component={GetPages} />
+
+            <footer id="footer">
+                <p className="address">©Copyrights dsflon. Allrights reserved.</p>
+            </footer>
+        </div>
     </Router>
 
 )
