@@ -102,7 +102,7 @@ void main(){
 
     // フェードイン・アウト機能
 
-    float timer = 1.0;
+    float timer = 0.5;
 
     float nextTime = mod(time - startTime + 0.05, timer + 0.05);
     // float nextTime = time - startTime;
@@ -120,6 +120,16 @@ void main(){
     }
     else if( hover == 3.0 ) {
         opacity = 0.0;
+    }
+
+    float darkNum = dark;
+    if( hover == 4.0 ) {
+        darkNum = dark + ( (1.0-dark) * easeInQuart( 1.0 - nextTime, 0.0, 1.0, 1.0 ) );
+        opacity = 1.0;
+    }
+    else if( hover == 5.0 ) {
+        darkNum = dark;
+        opacity = 1.0;
     }
     // フェードイン・アウト機能
 
@@ -146,9 +156,9 @@ void main(){
     c = 1.5 - sqrt(c);
 
     vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
-    float ajustNum = 0.3 + (opacity * dark);
+    float ajustNum = 0.3 + (opacity * darkNum);
     if( !isSp ) {
-        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity * dark);
+        texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity * darkNum);
     } else {
         texColor.rgb *= ( 0.3 / (1.0 - c) + noise(p_) ) - (0.1*(1.0-opacity)) + (0.3*opacity);
     }

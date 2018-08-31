@@ -12,7 +12,7 @@ import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
 // import Three from '../_set_three'
-import { Hover, FadeOutImg, Dark } from '../three'
+import { Hover, FadeOutImg, Dark, Click } from '../three'
 
 class App extends React.Component {
 
@@ -65,13 +65,15 @@ class App extends React.Component {
 
         target.onmouseout = null;
 
-        if( !window.ua.isSp ){
-            FadeOutImg( () => {
-                this.history.push("/post/post_"+target.id+"?img="+index);
-            })
-        } else {
-            this.history.push("/post/post_"+target.id+"?img="+index);
-        }
+        // if( !window.ua.isSp ){
+        //     FadeOutImg( () => {
+        //         this.history.push("/post/post_"+target.id+"?img="+index);
+        //     })
+        // } else {
+        //     this.history.push("/post/post_"+target.id+"?img="+index);
+        // }
+        if( !window.ua.isSp ) Click();
+        this.history.push("/post/post_"+target.id+"?img="+index);
 
     }
 
@@ -143,7 +145,7 @@ class App extends React.Component {
 
         return (
 
-            <div>
+            <div id="home">
 
                 <div id="hero">
                     <div className="hero-inner">
@@ -159,6 +161,10 @@ class App extends React.Component {
                 <div id="contents">
                     {list}
                 </div>
+
+                <footer id="footer">
+                    <p className="address">©Copyrights dsflon. Allrights reserved.</p>
+                </footer>
 
             </div>
 

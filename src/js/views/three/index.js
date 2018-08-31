@@ -145,6 +145,17 @@ function Hover(list,sections,callback,callback2) {
 }
 
 
+function Click(callback) {
+
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.hover.value = 4.0;
+	setTimeout( () => {
+		SCENE.uniforms.hover.value = 5.0;
+		if(callback) callback()
+	},800 )
+
+}
+
 function UpdateTextureImage(index) {
 
     SCENE.uniforms.imgSize.value = new THREE.Vector2(
@@ -160,7 +171,7 @@ function FadeInImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 1.0;
 		if(callback) callback()
-	},800 )
+	},400 )
 }
 function FadeOutImg (callback) {
 	SCENE.uniforms.startTime.value = clock.getElapsedTime();
@@ -168,7 +179,7 @@ function FadeOutImg (callback) {
 	setTimeout( () => {
 		SCENE.uniforms.hover.value = 3.0;
 		if(callback) callback()
-	},800 )
+	},400 )
 }
 function ShowImg () {
 	SCENE.uniforms.hover.value = 1.0;
@@ -200,6 +211,7 @@ function Dark(num) {
 export {
 	StartThree,
 	Hover,
+	Click,
 	UpdateTextureImage,
 	FadeInImg,
 	FadeOutImg,

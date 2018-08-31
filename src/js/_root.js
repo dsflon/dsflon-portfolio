@@ -36,9 +36,9 @@ const PageTransition = (props) => {
         <TransitionGroup>
             <CSSTransition
                 key={page || "home"}
-                timeout={2000}
+                timeout={1000}
                 classNames={page || "home"}>
-                <GetPages props={props} />
+                <GetPages className="adfgaf" props={props} />
             </CSSTransition>
         </TransitionGroup>
     )
@@ -97,10 +97,6 @@ class Root extends React.Component {
                     <Route
                         path="/:page?/:postId?"
                         render={props => <PageTransition list={this.state.list} {...props} />} />
-
-                    <footer id="footer">
-                        <p className="address">©Copyrights dsflon. Allrights reserved.</p>
-                    </footer>
 
                 </div>
             </Router>

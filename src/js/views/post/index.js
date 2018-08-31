@@ -22,12 +22,17 @@ class App extends React.Component {
     componentDidMount() {
 
         if( window.prevPage ) {
-            Dark(0.2);
             UpdateTextureImage(location.search.split("img=")[1]);
+            if( !window.ua.isSp ){
+                ShowImg();
+                Dark(0.2);
+            } else {
+                setTimeout( FadeInImg, 1000)
+            }
             setTimeout( () => {
                 window.scroll(0,0);
+                window.html.classList.remove("is_disabled");
             }, 1000);
-            setTimeout( FadeInImg, 1500)
         } else {
 
             if( location.search && location.search.split("img=")[1] ) {
@@ -60,9 +65,9 @@ class App extends React.Component {
         // let list = this.state.list ? this.SetSection(this.state.list) : null;
 
         return (
-            <div>
+            <div id="post">
 
-                <div id="post">
+                <div>
                     post<br />post<br />post<br />post<br />post<br />
                     post<br />post<br />post<br />post<br />post<br />
                     post<br />post<br />post<br />post<br />post<br />
@@ -71,6 +76,10 @@ class App extends React.Component {
                     post<br />post<br />post<br />post<br />post<br />
                     post<br />post<br />post<br />post<br />post<br />
                 </div>
+
+                <footer id="footer">
+                    <p className="address">©Copyrights dsflon. Allrights reserved.</p>
+                </footer>
 
             </div>
         );
