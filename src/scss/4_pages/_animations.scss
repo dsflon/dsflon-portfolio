@@ -7,13 +7,13 @@
             opacity: 0;
         }
     }
-    &.home-enter-done {
+    &.home-enter-active {
         #hero {
-            transition: all 1s;
+            transition: all 0.5s ease 0.5s;
             opacity: 1;
         }
         #contents {
-            transition: all 1s;
+            transition: all 0.5s ease 0.5s;
             opacity: 1;
         }
     }
@@ -49,12 +49,12 @@
         // }
     }
     &.post-enter-active {
+        // transition: all 0.5s ease 0.5s;
+        // opacity: 1;
     }
     &.post-enter-done {
-
-            transition: all 1.0s ease;
-            opacity: 1;
-
+        transition: all 1s;
+        opacity: 1;
         // #post {
         //     transition: all 1.0s ease;
         //     opacity: 1;
