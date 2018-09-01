@@ -37,7 +37,7 @@ const PageTransition = (props) => {
         <TransitionGroup>
             <CSSTransition
                 key={page || "home"}
-                timeout={1000}
+                timeout={2000}
                 classNames={page || "home"}>
                 <GetPages className="adfgaf" props={props} />
             </CSSTransition>

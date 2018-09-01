@@ -29,9 +29,9 @@ class App extends React.Component {
 
         if( window.prevPage == "post" ) {
             window.html.classList.add("is_disabled");
-            setTimeout( () => {
+            // setTimeout( () => {
                 window.scroll(0,window.scrollVal);
-            }, 500);
+            // }, 500);
             FadeOutImg( () => {
                 // Wave(0.8);
                 Dark(1.0)
@@ -86,11 +86,14 @@ class App extends React.Component {
 
         for (var i = 0; i < data.length; i++) {
             list.push(
-                <li key={i} className="list-item">
+                <li
+                    key={i}
+                    style={{ "transitionDelay": 0.1 + (i*0.05) +"s" }}
+                    className="list-item">
                     <a
                         id={data[i].id}
                         data-index={this.imageIndex}
-                        className={ "list-link " + (data[i].lock ? "is_lock" : "") }
+                        className={ "list-link" + (data[i].lock ? " is_lock" : "") }
                         ref={el => {this.listElm.push(el)}}
                         onClick={this.ClickList.bind(this)}>
                         <figure
@@ -148,7 +151,7 @@ class App extends React.Component {
 
         return (
 
-            <div id="home">
+            <div id="home" className="home-enter-done">
 
                 <div id="hero">
                     <div className="hero-inner">

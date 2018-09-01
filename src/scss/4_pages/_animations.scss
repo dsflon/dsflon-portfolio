@@ -1,36 +1,45 @@
 @charset "utf-8";
 
 #home {
+    &.home-enter-done {
+        #contents .list-item { transition-delay: 0s !important; }
+    }
     &.home-enter {
-        #hero { opacity: 0; }
-        #contents {
-            opacity: 0;
-        }
+        pointer-events: none;
+        #hero { opacity: 0; mix-blend-mode: normal; }
+        #contents { opacity: 0; }
+        #contents .list-item { opacity: 1; }
     }
     &.home-enter-active {
         #hero {
-            transition: all 0.5s ease 0.5s;
+            transition: opacity 1.0s ease 1.0s;
             opacity: 1;
-            mix-blend-mode: normal;
         }
         #contents {
-            transition: all 0.5s ease 0.5s;
+            transition: opacity 1.0s ease 1.0s !important;
             opacity: 1;
         }
     }
     &.home-exit {
         #hero { opacity: 1; }
-        #contents { opacity: 1; }
+        #contents .a-ttl { opacity: 1; }
+        #contents .list-item { opacity: 1; transform: translateY(0px); }
     }
     &.home-exit-active {
         #hero {
-            transition: all 0.5s ease;
+            transition: opacity 0.5s ease;
             opacity: 0;
             mix-blend-mode: normal;
         }
-        #contents {
-            transition: all 0.5s ease;
+        #contents .a-ttl {
+            transition: opacity 0.5s ease;
             opacity: 0;
+        }
+        #contents .list-item {
+            transition-duration: 0.5s;
+            transition-timing-function: ease;
+            opacity: 0;
+            transform: translateY(20px);
         }
     }
 
@@ -45,22 +54,12 @@
         z-index: 99;
         pointer-events: none;
         opacity: 0;
-        // #post {
-        //     opacity: 0;
-        // }
     }
     &.post-enter-active {
-        // transition: all 0.5s ease 0.5s;
-        // opacity: 1;
+        transition: all 0.5s ease 1.5s;
+        opacity: 1;
     }
     &.post-enter-done {
-        transition: all 1s;
-        opacity: 1;
-
-        // #post {
-        //     transition: all 1.0s ease;
-        //     opacity: 1;
-        // }
     }
     &.post-exit {
         position: fixed;
@@ -68,16 +67,9 @@
         z-index: 99;
         pointer-events: none;
             opacity: 1;
-        // #post {
-        //     opacity: 1;
-        // }
     }
     &.post-exit-active {
         transition: all 0.5s ease;
         opacity: 0;
-        // #post {
-        //     transition: all 0.5s ease;
-        //     opacity: 0;
-        // }
     }
 }
