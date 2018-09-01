@@ -6,6 +6,10 @@ const reducer = (state, action) => {
         return Object.assign({}, state, {
             list: action.value
         })
+        case 'POST':
+        return Object.assign({}, state, {
+            post: action.value
+        })
 
         default:
         return state;

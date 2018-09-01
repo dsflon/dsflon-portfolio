@@ -29,7 +29,8 @@ import mgnUa from 'mgn-ua';
 ** Create Store
 */
 const initialState = {
-    list: null
+    list: null,
+    post: null
 };
 let store = createStore(reducer,initialState);
 

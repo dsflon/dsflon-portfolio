@@ -39,7 +39,6 @@ $margin_min: 30;
 			margin: 0;
 		}
 
-
 		&.is_hover {
 			.list-item .list-link:not(.is_hover) {
 				// opacity: 0.5;
@@ -57,17 +56,17 @@ $margin_min: 30;
 		.list-item {
 
 			width: calc( 25% - #{$margin}px );
-			padding-left: $margin/2 + px;
-			padding-right: $margin/2 + px;
+			margin-left: $margin/2 + px;
+			margin-right: $margin/2 + px;
 			margin-bottom: 60px;
 
 			@include max(1160) { width: calc( 33.33% - #{$margin}px ); }
 			@include max(1024) {
 				width: calc( 50% - #{$margin_min}px );
-				padding-left: $margin_min/2 + px;
-				padding-right: $margin_min/2 + px;
+				margin-left: $margin_min/2 + px;
+				margin-right: $margin_min/2 + px;
 			}
-			@include max(480) { width: 100%; padding: 0; }
+			@include max(480) { width: 100%; margin-left: 0; margin-right: 0; }
 
 			.list-link {
 				display: block;

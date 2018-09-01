@@ -7,8 +7,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../../actions';
 
-// Common functions
-import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
 // import Three from '../_set_three'
@@ -31,6 +29,9 @@ class App extends React.Component {
 
         if( window.prevPage == "post" ) {
             window.html.classList.add("is_disabled");
+            setTimeout( () => {
+                window.scroll(0,window.scrollVal);
+            }, 500);
             FadeOutImg( () => {
                 // Wave(0.8);
                 Dark(1.0)
@@ -58,7 +59,7 @@ class App extends React.Component {
 
         e.preventDefault();
 
-        if(!this.clickable) return false;
+        if( !window.ua.isSp && !this.clickable ) return false;
         window.html.classList.add("is_disabled");
 
         let target = e.currentTarget,
@@ -75,6 +76,7 @@ class App extends React.Component {
         // }
         if( !window.ua.isSp ) DarkFade(0.2);
         this.history.push("/post/post_"+target.id+"?img="+index);
+        window.scrollVal = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
 
     }
 

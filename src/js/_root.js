@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // Common functions
 import Fetch from './common/_fetch';
+import SetDictionary from './common/_setDictionary';
 
 import Home from './views/home'
 import Post from './views/post'
@@ -13,13 +14,13 @@ import { StartThree } from './views/three'
 
 const GetPages = ({props}) => {
     const {
-        match: { url, params: { page,postId } }
+        match: { params: { page } }
     } = props;
 
     switch (page) {
 
         case 'post':
-        return <Post props={props} postId={postId} />
+        return <Post props={props} />
 
         default:
         return <Home props={props} />
@@ -51,7 +52,8 @@ class Root extends React.Component {
         super(props);
 
         this.state = {
-            list: null
+            list: null,
+            dictionary: null
         }
 
     }
@@ -60,7 +62,8 @@ class Root extends React.Component {
 
         Fetch("/api/list.json", null, (json) => {
             this.setState({
-                list: json.data
+                list: json.data,
+                dictionary: SetDictionary(json.data)
             })
             this.StartThree(json.data)
         },(e) => {
@@ -96,7 +99,9 @@ class Root extends React.Component {
 
                     <Route
                         path="/:page?/:postId?"
-                        render={props => <PageTransition list={this.state.list} {...props} />} />
+                        render={
+                            props => <PageTransition dictionary={this.state.dictionary} list={this.state.list} {...props} />
+                    } />
 
                 </div>
             </Router>

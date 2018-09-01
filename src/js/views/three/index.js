@@ -95,6 +95,8 @@ function TweenMouseOver( hoverBefore, hoverAfter ) {
 
 function Hover(list,sections,callback,callback2) {
 
+	// if( !list[0] ) return false;
+
 	for (var i = 0; i < list.length; i++) {
 
 		list[i].onmouseover = (e) => {
@@ -118,7 +120,7 @@ function Hover(list,sections,callback,callback2) {
 				target.classList.add("is_hover");
 
 				FadeInImg(callback);
-			}, 500)
+			}, 300)
 		}
 		list[i].onmouseout = (e) => {
 			clearTimeout(mouseoverTimer);

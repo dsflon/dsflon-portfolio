@@ -1,14 +1,14 @@
 import * as THREE from 'three';
 
 import React from 'react';
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../../actions';
 
 // Common functions
-import Fetch from '../../common/_fetch';
+import Nl2br from '../../common/_nl2br';
 
 // import { Helmet } from "react-helmet";
 import { ShowImg, FadeInImg, FadeOutImg, UpdateTextureImage, Dark, DarkFade, WaveFadeIn } from '../three'
@@ -20,6 +20,10 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+
+        const {
+            match: { params: { postId } }
+        } = this.props.props;
 
         if( window.prevPage ) {
             UpdateTextureImage(location.search.split("img=")[1]);
@@ -50,14 +54,58 @@ class App extends React.Component {
 
         }
 
-        window.prevPage = "post";
+        if( !postId ) {
+            window.prevPage = null;
+            this.history.replace("/")
+        } else {
+            window.prevPage = "post";
+        }
     }
     componentWillUnmount() {
     }
     componentDidUpdate() {
     }
 
-    StartThree(data) {
+    Back() {
+        this.history.push("/")
+    }
+
+    SetPost(data) {
+
+        let github = data.link.github ? <a href={data.link.github} className="a-btn">GitHub</a> : null;
+        let view = data.link.view ? <a href={data.link.view} className="a-btn">View page</a> : null;
+
+        return (
+
+            <div className="post-inner">
+                <div className="post-body">
+
+                    <div className="post-flex">
+
+                        <figure className="post-thumb"><img src={data.thumb} /></figure>
+
+                        <div className="post-wrap">
+                            <p className="post-date">{data.date}</p>
+                            <h2 className="post-ttl">{data.title}</h2>
+                            <p className="post-text">{Nl2br(data.text)}</p>
+                            <p className="post-skills">{data.skills}</p>
+                            <div className="post-btns">
+                                {github}
+                                {view}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/*<Link to="/" className="a-btn is_back">Back</Link>*/}
+                    <button onClick={this.Back.bind(this)} className="a-btn">Back</button>
+
+                </div>
+            </div>
+
+
+        )
+
     }
 
     render() {
@@ -66,20 +114,22 @@ class App extends React.Component {
         this.actions = this.props.actions;
         this.history = this.props.props.history;
 
-        // let list = this.state.list ? this.SetSection(this.state.list) : null;
+        const {
+            match: { params: { postId } }
+        } = this.props.props;
+
+        let postData = this.props.props.dictionary,
+            postDom = null;
+        if( postData && postId ) {
+            postData = postData[ postId.split("post_")[1] ];
+            postDom = this.SetPost(postData);
+        } else {
+        }
 
         return (
             <div id="post">
 
-                <div>
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                    post<br />post<br />post<br />post<br />post<br />
-                </div>
+                {postDom}
 
                 <footer id="footer">
                     <p className="address">©Copyrights dsflon. Allrights reserved.</p>
