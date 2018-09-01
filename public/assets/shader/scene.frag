@@ -14,6 +14,8 @@ uniform vec2 imgSize;
 uniform bool isSp;
 uniform float hover;
 uniform float dark;
+uniform float wave;
+uniform float waveFlag;
 
 uniform vec2 deviceorientation;
 
@@ -63,6 +65,16 @@ float noise(vec2 p){
 ** c : 開始と終了の値の差分
 ** d : Tween(トゥイーン)の合計時間
 **/
+float easeIn(float t, float b, float c, float d) {
+    float t_ = t / d;
+    return c*t_*t_*t_ + b;
+}
+float easeOut(float t, float b, float c, float d) {
+    float t_ = t / d;
+    t_ = t_ - 1.0;
+    return -c*(t_*t_*t_ - 1.0) + b;
+}
+
 float easeInQuart(float t, float b, float c, float d) {
     float t_ = t / d;
     return c*t_ * t_ * t_ * t_ + b;
@@ -91,8 +103,8 @@ void main(){
     float len = length(p_ - mouse);
     if( isSp ) len = length(p_ - deviceorientation) * 4.0;
 
-    vec2 destTex = vec2(1.0,1.0);
-    // float destTex2 = 1.0;
+    float destTex = 1.0;
+    float destTex2 = 1.0;
     float destTex3 = 1.0;
 
     vec2 p  = p_ * 8.0 - vec2(20.0);
@@ -100,14 +112,22 @@ void main(){
     float c = 1.0;
     float inten = .02;
 
+    float speed = 0.003;    // larger -> slower
+    float speed2 = 0.005;   // larger -> slower
+    float freq = 1.2;     // ripples
+    float xflow = 1.5;    // flow speed in x direction
+    float yflow = 1.0;    // flow speed in y direction
+
     // フェードイン・アウト機能
 
     float timer = 0.5;
 
     float nextTime = mod(time - startTime + 0.05, timer + 0.05);
-    // float nextTime = time - startTime;
     float opacity = 0.0;
     float noiseNum = noise(vec2(2.0) + sin(time));
+
+    float darkNum = dark;
+    float freqNum = freq;
 
     if( hover == 0.0 ) {
         opacity = easeOutQuart( nextTime, 0.0, 1.0, timer );
@@ -121,18 +141,22 @@ void main(){
     else if( hover == 3.0 ) {
         opacity = 0.0;
     }
-
-    float darkNum = dark;
-    if( hover == 4.0 ) {
-        darkNum = dark + ( (1.0-dark) * easeInQuart( 1.0 - nextTime, 0.0, 1.0, 1.0 ) );
+    else if( hover == 4.0 ) {
+        darkNum = 1.0 - easeOutQuart( time - startTime, 0.0, 1.0-dark, 1.0 );
         opacity = 1.0;
     }
     else if( hover == 5.0 ) {
         darkNum = dark;
         opacity = 1.0;
     }
-    // フェードイン・アウト機能
 
+    // if( waveFlag == 1.0 ) {
+    //     freqNum = easeInQuart( time - startTime, freq, wave-freq, 1.0 );
+    // }
+    // else if( waveFlag == 2.0 ) {
+    //     freqNum = wave;
+    // }
+    // フェードイン・アウト機能
 
     // 光のゆらぎ
     for (int n = 1; n < MAX_ITER; n++) {
@@ -145,17 +169,24 @@ void main(){
         }
 
         i = p + vec2( cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
-
         c += 1.0 / length( vec2(p.x / (sin(i.x+t)/inten), p.y / (cos(i.y+t)/inten)) );
 
-        // destTex2 += (len*0.75) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
-        destTex3 += (len*2.0) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
+        i = p + vec2(cos(t - i.x * freqNum) + sin(t + i.y * freqNum) + (t * xflow), sin(t - i.y * freqNum) + cos(t + i.x * freqNum) + (t * yflow));
+        c += 1.0 / length(vec2(p.x / (sin(i.x + t * speed2) / inten), p.y / (cos(i.y + t * speed2) / inten)));
+
+        destTex += (len*2.0) * length( vec2( (sin(i.x+t2)/inten), (cos(i.y+t2)/inten) ) ) * 0.0005;
+        destTex2 += (len*2.0) * length( vec2( (sin(i.x+t2*1.5)/inten), (cos(i.y+t2*1.5)/inten) ) ) * 0.001;
+        destTex3 += (len*10.0) * length( vec2( (sin(i.x+t2*0.5)/inten), (cos(i.y+t2*0.5)/inten) ) ) * 0.0005;
     }
 
     c /= float(MAX_ITER);
     c = 1.5 - sqrt(c);
 
-    vec4 texColor = vec4(0.2, 0.2, 0.2, 1.);
+    vec4 texColor = vec4(
+        0.2*opacity + 0.4*(1.0-opacity),
+        0.2*opacity + 0.4*(1.0-opacity),
+        0.2*opacity + 0.4*(1.0-opacity),
+        1.);
     float ajustNum = 0.3 + (opacity * darkNum);
     if( !isSp ) {
         texColor.rgb *= (0.5+pow(noiseNum,3.0)) * ajustNum / (1.0 - c) - (0.1*(1.0-opacity)) + (0.5*opacity * darkNum);
@@ -164,9 +195,13 @@ void main(){
     }
     // 光のゆらぎ
 
-    vec4 samplerColor = texture2D(texture, ajustCenter * destTex3);
+    vec4 samplerColor = texture2D(texture, ajustCenter * destTex);
+    vec4 samplerColor2 = texture2D(texture, ajustCenter * destTex2);
+    vec4 samplerColor3 = texture2D(texture, ajustCenter * destTex3);
 
-        gl_FragColor = samplerColor * texColor * opacity;
-        gl_FragColor += texColor * (1. - opacity);
+        samplerColor2 = vec4( samplerColor2.r, samplerColor2.g, samplerColor2.b, 1.0 );
+
+    gl_FragColor = samplerColor2 * samplerColor * texColor * opacity * 1.5;
+    gl_FragColor += texColor * (1. - opacity);
 
 }

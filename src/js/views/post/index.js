@@ -11,7 +11,7 @@ import * as ActionCreators from '../../actions';
 import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
-import { ShowImg, FadeInImg, FadeOutImg, UpdateTextureImage, Dark } from '../three'
+import { ShowImg, FadeInImg, FadeOutImg, UpdateTextureImage, Dark, DarkFade, WaveFadeIn } from '../three'
 
 class App extends React.Component {
 
@@ -24,8 +24,11 @@ class App extends React.Component {
         if( window.prevPage ) {
             UpdateTextureImage(location.search.split("img=")[1]);
             if( !window.ua.isSp ){
-                ShowImg();
+                // DarkFade(0.2);
                 Dark(0.2);
+                // WaveFadeIn(3.0);
+                ShowImg();
+                // setTimeout( FadeInImg, 1000)
             } else {
                 setTimeout( FadeInImg, 1000)
             }
@@ -39,6 +42,7 @@ class App extends React.Component {
                 setTimeout( () => {
                     window.html.classList.remove("is_disabled");
                     Dark(0.2);
+                    // Wave(3.0);
                     UpdateTextureImage(location.search.split("img=")[1]);
                 }, 300)
                 setTimeout( FadeInImg, 800)

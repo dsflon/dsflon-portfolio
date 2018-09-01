@@ -12,7 +12,7 @@ import Fetch from '../../common/_fetch';
 
 // import { Helmet } from "react-helmet";
 // import Three from '../_set_three'
-import { Hover, FadeOutImg, Dark, Click } from '../three'
+import { Hover, FadeOutImg, Dark, DarkFade, Wave } from '../three'
 
 class App extends React.Component {
 
@@ -32,6 +32,7 @@ class App extends React.Component {
         if( window.prevPage == "post" ) {
             window.html.classList.add("is_disabled");
             FadeOutImg( () => {
+                // Wave(0.8);
                 Dark(1.0)
                 window.html.classList.remove("is_disabled");
             })
@@ -57,7 +58,7 @@ class App extends React.Component {
 
         e.preventDefault();
 
-        // if(!this.clickable) return false;
+        if(!this.clickable) return false;
         window.html.classList.add("is_disabled");
 
         let target = e.currentTarget,
@@ -72,7 +73,7 @@ class App extends React.Component {
         // } else {
         //     this.history.push("/post/post_"+target.id+"?img="+index);
         // }
-        if( !window.ua.isSp ) Click();
+        if( !window.ua.isSp ) DarkFade(0.2);
         this.history.push("/post/post_"+target.id+"?img="+index);
 
     }
@@ -84,7 +85,7 @@ class App extends React.Component {
         for (var i = 0; i < data.length; i++) {
             list.push(
                 <li key={i} className="list-item">
-                    <button
+                    <a
                         id={data[i].id}
                         data-index={this.imageIndex}
                         className={ "list-link " + (data[i].lock ? "is_lock" : "") }
@@ -101,7 +102,7 @@ class App extends React.Component {
                             </h3>
                             <p className="list-skills">{data[i].skills}</p>
                         </div>
-                    </button>
+                    </a>
                 </li>
             )
 

@@ -15,7 +15,6 @@
         position: absolute;
         top: 50%; left: 50%;
         transform: translate(-50%,-50%);
-
         .hero-img {
             width: 150px;
             margin-left: auto;
@@ -26,6 +25,8 @@
             color: #FFF;
             font-size: 20px;
             margin-bottom: 20px;
+			line-height: 1;
+			white-space: nowrap;
         }
         .hero-links {
             text-align: center;
@@ -39,5 +40,13 @@
                 }
             }
         }
+    }
+
+    @include max(480) {
+		.hero-inner {
+			.hero-img { width: 100px; }
+			.hero-ttl { font-size: 16px; }
+			.hero-links li a { width: 20px; }
+		}
     }
 }

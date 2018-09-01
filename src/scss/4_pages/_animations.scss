@@ -11,6 +11,7 @@
         #hero {
             transition: all 0.5s ease 0.5s;
             opacity: 1;
+            mix-blend-mode: normal;
         }
         #contents {
             transition: all 0.5s ease 0.5s;
@@ -25,6 +26,7 @@
         #hero {
             transition: all 0.5s ease;
             opacity: 0;
+            mix-blend-mode: normal;
         }
         #contents {
             transition: all 0.5s ease;
@@ -42,8 +44,7 @@
         width: 100%; height: 100%;
         z-index: 99;
         pointer-events: none;
-
-            opacity: 0;
+        opacity: 0;
         // #post {
         //     opacity: 0;
         // }
@@ -55,6 +56,7 @@
     &.post-enter-done {
         transition: all 1s;
         opacity: 1;
+
         // #post {
         //     transition: all 1.0s ease;
         //     opacity: 1;

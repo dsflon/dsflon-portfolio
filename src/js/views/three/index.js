@@ -118,7 +118,7 @@ function Hover(list,sections,callback,callback2) {
 				target.classList.add("is_hover");
 
 				FadeInImg(callback);
-			}, 300)
+			}, 500)
 		}
 		list[i].onmouseout = (e) => {
 			clearTimeout(mouseoverTimer);
@@ -136,23 +136,11 @@ function Hover(list,sections,callback,callback2) {
 					}
 
 					FadeOutImg(callback2);
-				}, 300)
+				}, 100)
 			}
 		}
 
 	}
-
-}
-
-
-function Click(callback) {
-
-	SCENE.uniforms.startTime.value = clock.getElapsedTime();
-	SCENE.uniforms.hover.value = 4.0;
-	setTimeout( () => {
-		SCENE.uniforms.hover.value = 5.0;
-		if(callback) callback()
-	},800 )
 
 }
 
@@ -207,15 +195,56 @@ function StartThree(three) {
 function Dark(num) {
 	SCENE.uniforms.dark.value = num;
 }
+function Wave(num) {
+	SCENE.uniforms.wave.value = num;
+}
+function WaveFadeIn(num,callback) {
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.wave.value = num;
+	setTimeout( () => {
+		SCENE.uniforms.waveFlag.value = 1.0;
+	},1 )
+	setTimeout( () => {
+		SCENE.uniforms.waveFlag.value = 2.0;
+		if(callback) callback()
+	},1000 )
+}
+function WaveFadeOut(num,callback) {
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.wave.value = num;
+	setTimeout( () => {
+		SCENE.uniforms.waveFlag.value = 3.0;
+	},1 )
+	setTimeout( () => {
+		SCENE.uniforms.waveFlag.value = 4.0;
+		if(callback) callback()
+	},1000 )
+}
+
+
+function DarkFade(num,callback) {
+	SCENE.uniforms.startTime.value = clock.getElapsedTime();
+	SCENE.uniforms.dark.value = num;
+	// SCENE.uniforms.hover.value = 3.0;
+	setTimeout( () => {
+		SCENE.uniforms.hover.value = 4.0;
+	},1 )
+	setTimeout( () => {
+		SCENE.uniforms.hover.value = 5.0;
+		if(callback) callback()
+	},1000 )
+}
 
 export {
 	StartThree,
 	Hover,
-	Click,
 	UpdateTextureImage,
 	FadeInImg,
 	FadeOutImg,
 	ShowImg,
 	HideImg,
-	Dark
+	DarkFade,
+	Dark,
+	WaveFadeIn,
+	WaveFadeOut
 };

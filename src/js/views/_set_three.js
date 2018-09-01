@@ -23,7 +23,15 @@ function shaderInit(sceneCode,postCode,three) {
 				type: 'f',
 				value: 1.0
 			},
+			wave: {
+				type: 'f',
+				value: 0.0
+			},
 			hover: {
+				type: 'f',
+				value: 0.1
+			},
+			waveFlag: {
 				type: 'f',
 				value: 0.1
 			},

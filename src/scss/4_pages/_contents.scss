@@ -34,6 +34,10 @@ $margin_min: 30;
 			margin-left: -1 * $margin_min/2 + px;
 			margin-right: -1 * $margin_min/2 + px;
 		}
+		@include max(480) {
+			display: block;
+			margin: 0;
+		}
 
 
 		&.is_hover {
@@ -63,7 +67,7 @@ $margin_min: 30;
 				padding-left: $margin_min/2 + px;
 				padding-right: $margin_min/2 + px;
 			}
-			@include max(480) { width: 100%; }
+			@include max(480) { width: 100%; padding: 0; }
 
 			.list-link {
 				display: block;
@@ -101,7 +105,8 @@ $margin_min: 30;
 						margin-bottom: 5px;
 					}
 					.list-ttl {
-						font-family: $font_bold;
+						// font-family: $font_bold;
+						font-weight: bold;
 						margin-bottom: 20px;
 						font-size: 16px;
 					}
