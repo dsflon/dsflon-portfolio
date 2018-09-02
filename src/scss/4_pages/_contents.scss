@@ -61,7 +61,7 @@ $margin_min: 30;
 			margin-bottom: 60px;
 
 			@include max(1160) { width: calc( 33.33% - #{$margin}px ); }
-			@include max(1024) {
+			@include max(768) {
 				width: calc( 50% - #{$margin_min}px );
 				margin-left: $margin_min/2 + px;
 				margin-right: $margin_min/2 + px;

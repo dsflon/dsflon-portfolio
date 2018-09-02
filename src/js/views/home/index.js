@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../../actions';
 
+// Common functions
+// import ImgToBlob from '../../common/_img_to_blob';
 
 // import { Helmet } from "react-helmet";
 // import Three from '../_set_three'
@@ -21,7 +23,10 @@ class App extends React.Component {
 
         this.listElm = [];
         this.sectionsElm = [];
-        this.clickable = false
+        this.clickable = false;
+
+        this.listBlob = [];
+
     }
 
     componentDidMount() {
@@ -43,6 +48,13 @@ class App extends React.Component {
     }
     componentDidUpdate() {
         this.HoverCntl()
+
+        if( this.imageList[0] ) {
+            for (var i = 0; i < this.imageList.length; i++) {
+                this.ToBlob(i,this.imageList[i],this.imageList.length)
+                this.listBlob.push("")
+            }
+        }
     }
 
     HoverCntl() {
@@ -80,11 +92,50 @@ class App extends React.Component {
 
     }
 
+    ToBlob(i,path,length) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open( "GET", path, true );
+        xhr.responseType = "arraybuffer";
+        xhr.onload = ( e ) => {
+
+            let arraybuffer = e.target.response,
+                blob = new Blob([arraybuffer]);
+
+            let URL = window.URL || window.webkitURL,
+                imgURL = URL.createObjectURL(blob);
+
+            this.listBlob.splice(i, 1, imgURL);
+
+            if( i == length - 1 ) {
+                setTimeout( ()=> {
+                    this.ImgReplace();
+                }, 1000)
+            }
+
+            URL.revokeObjectURL(blob);
+        };
+        xhr.send();
+    }
+
+    ImgReplace() {
+
+        let item = document.getElementsByClassName('list-thumb');
+
+        for (var i = 0; i < item.length; i++) {
+            item[i].style.backgroundImage = "url(" + this.listBlob[i] + ")";
+        }
+
+    }
+
     SetList(data) {
 
         let list = [];
 
         for (var i = 0; i < data.length; i++) {
+
+            // this.ToBlob(this.imageIndex, data[i].thumb, data.length)
+
             list.push(
                 <li
                     key={i}
@@ -146,8 +197,9 @@ class App extends React.Component {
         this.actions = this.props.actions;
         this.history = this.props.props.history;
 
-        let list = this.props.props.list;
-            list = list ? this.SetSection(list) : null;
+        this.list = this.props.props.list;
+        this.imageList = this.props.props.imageList;
+        let list = this.list ? this.SetSection(this.list) : null;
 
         return (
 

@@ -1,10 +1,52 @@
 @charset "utf-8";
 
-.fw {
 
-    // ----------------------------------------------------------
-    // Button
-    // ----------------------------------------------------------
+// ----------------------------------------------------------
+// Button
+// ----------------------------------------------------------
+.a-btn {
+    border-radius: 100px;
+    line-height: 1;
+    text-align: center;
+    width: 30%;
+    min-width: 130px;
+    max-width: 200px;
+    border: 1px solid #666;
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    padding: 14px 20px;
+    background: none;
+    font-size: 14px;
+    transition: background 0.2s ease;
+    cursor: pointer;
 
+    @include arrowAbs($color:#FFF, $size:6, $width:1, $layout:right, $position:15, $direction:right);
 
-}//.fw
+    @include min(768) {
+        &:hover {
+            background: rgba(#666,0.9);
+        }
+    }
+
+    &.is_back {
+        background: rgba(#666,0.9);
+        border-color: rgba(#666,0.9);
+        @include arrowAbs($color:#FFF, $size:6, $width:1, $layout:left, $position:15, $direction:left);
+        @include min(768) {
+            &:hover {
+                background: rgba(#666,0.2);
+            }
+        }
+    }
+}
+
+.a-btns {
+    margin: 0 -5px;
+    @include max(480) {
+        text-align: center;
+    }
+    .a-btn {
+        margin: 0 5px;
+    }
+}

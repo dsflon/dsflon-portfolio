@@ -53,7 +53,8 @@ class Root extends React.Component {
 
         this.state = {
             list: null,
-            dictionary: null
+            dictionary: null,
+            imageList: null
         }
 
     }
@@ -61,27 +62,30 @@ class Root extends React.Component {
     componentDidMount() {
 
         Fetch("/api/list.json", null, (json) => {
+
+            let imageList = [];
+
+            for (var i = 0; i < json.data.length; i++) {
+                let list = json.data[i].list;
+                for (var j = 0; j < list.length; j++) {
+                    imageList.push(list[j].thumb)
+                }
+            }
+
             this.setState({
                 list: json.data,
-                dictionary: SetDictionary(json.data)
+                dictionary: SetDictionary(json.data),
+                imageList: imageList
             })
-            this.StartThree(json.data)
+            this.SetThree(imageList)
+
         },(e) => {
             console.error(e)
         });
 
     }
 
-    StartThree(data) {
-
-        let imageList = [];
-
-        for (var i = 0; i < data.length; i++) {
-            let list = data[i].list;
-            for (var j = 0; j < list.length; j++) {
-                imageList.push(list[j].thumb)
-            }
-        }
+    SetThree(imageList) {
 
         Three( this.refs.bg, imageList, (threeObj) => {
             StartThree(threeObj)
@@ -100,7 +104,7 @@ class Root extends React.Component {
                     <Route
                         path="/:page?/:postId?"
                         render={
-                            props => <PageTransition dictionary={this.state.dictionary} list={this.state.list} {...props} />
+                            props => <PageTransition dictionary={this.state.dictionary} list={this.state.list} imageList={this.state.imageList} {...props} />
                     } />
 
                 </div>

@@ -4,9 +4,7 @@
 
 	position: relative;
 	z-index: 2;
-	// padding: 60px 60px 0px 60px;
     color: #FFF;
-
 
 	.post-inner {
 
@@ -14,13 +12,36 @@
 		position: relative;
 
 		@include max(768) {
-			padding: 60px 60px 0 60px;
+			padding: 20px 60px 40px;
 		}
 	    @include max(480) {
-			padding: 60px 20px 0 20px;
+			padding: 20px 20px 40px;
 	    }
 
 		.post-body {
+
+			.post-wrap {
+				line-height: 1.6;
+				.post-date {
+					margin-bottom: 5px;
+					line-height: 1;
+				}
+				.post-ttl {
+					font-weight: bold;
+					margin-bottom: 20px;
+					font-size: 20px;
+				}
+				.post-text {
+				}
+				.post-skills {
+					border-top: 1px solid #333;
+					margin-top: 20px;
+					padding-top: 20px;
+				}
+			}
+			.post-btns {
+				margin-top: 40px;
+			}
 
 			@include min(768) {
 				position: absolute;
@@ -35,41 +56,31 @@
 				}
 				.post-thumb {
 					width: 50%;
-					img {
-						width: 100%;
-					}
+					img { width: 100%; }
 				}
 				.post-wrap {
 					width: 50%;
 					padding-left: 60px;
-					line-height: 1.6;
-					.post-date {
-						margin-bottom: 5px;
-					}
-					.post-ttl {
-						font-weight: bold;
-						margin-bottom: 20px;
-						font-size: 20px;
-					}
-					.post-text {
-					}
-					.post-skills {
-						border-top: 1px solid #333;
-						margin-top: 20px;
-						padding-top: 20px;
-					}
-					.post-btns {
-						margin-top: 40px;
-					}
 				}
 			}
 			@include max(768) {
+				.post-thumb {
+					margin-bottom: 20px;
+				}
+				.post-wrap {
+					.post-ttl {
+						font-size: 18px;
+					}
+				}
 			}
-
-
 
 		}
 
+	}
+
+	.post-back {
+		margin-top: 60px;
+		text-align: center;
 	}
 
 }

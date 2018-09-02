@@ -66,10 +66,6 @@ class App extends React.Component {
     componentDidUpdate() {
     }
 
-    Back() {
-        this.history.push("/")
-    }
-
     SetPost(data) {
 
         let github = data.link.github ? <a href={data.link.github} className="a-btn">GitHub</a> : null;
@@ -89,7 +85,7 @@ class App extends React.Component {
                             <h2 className="post-ttl">{data.title}</h2>
                             <p className="post-text">{Nl2br(data.text)}</p>
                             <p className="post-skills">{data.skills}</p>
-                            <div className="post-btns">
+                            <div className="post-btns a-btns">
                                 {github}
                                 {view}
                             </div>
@@ -97,12 +93,12 @@ class App extends React.Component {
 
                     </div>
 
-                    {/*<Link to="/" className="a-btn is_back">Back</Link>*/}
-                    <button onClick={this.Back.bind(this)} className="a-btn">Back</button>
+                    <div className="post-back">
+                        <Link to="/" className="a-btn is_back">Back</Link>
+                    </div>
 
                 </div>
             </div>
-
 
         )
 
@@ -128,6 +124,10 @@ class App extends React.Component {
 
         return (
             <div id="post">
+
+                <header id="header">
+                    <h1><Link to="/">dsflon | daiki saito</Link></h1>
+                </header>
 
                 {postDom}
 
