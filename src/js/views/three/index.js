@@ -99,50 +99,54 @@ function Hover(list,sections,callback,callback2) {
 
 	for (var i = 0; i < list.length; i++) {
 
-		list[i].onmouseover = (e) => {
-			clearTimeout(mouseoutTimer);
-			let target = e.currentTarget;
-			let index = target.dataset.index;
+		// if(list[i].dataset.locked) return false;
+		if(list[i].dataset.locked === "false") {
 
-			// if(!hoverFlag) {
-				mouseoverTimer = setTimeout( () => {
-					UpdateTextureImage(index)
-					hoverFlag = true;
+			list[i].onmouseover = (e) => {
+				clearTimeout(mouseoutTimer);
+				let target = e.currentTarget;
+				let index = target.dataset.index;
 
-					for (var j = 0; j < list.length; j++) {
-						if(list[j]) list[j].classList.remove("is_hover");
-					}
-					for (var j = 0; j < sections.length; j++) {
-						if(sections[j]) {
-							sections[j].classList.remove("is_hover");
-							sections[j].classList.add("is_hover");
+				// if(!hoverFlag) {
+					mouseoverTimer = setTimeout( () => {
+						UpdateTextureImage(index)
+						hoverFlag = true;
+
+						for (var j = 0; j < list.length; j++) {
+							if(list[j]) list[j].classList.remove("is_hover");
 						}
-					}
-					target.classList.add("is_hover");
+						for (var j = 0; j < sections.length; j++) {
+							if(sections[j]) {
+								sections[j].classList.remove("is_hover");
+								sections[j].classList.add("is_hover");
+							}
+						}
+						target.classList.add("is_hover");
 
-					FadeInImg(callback);
+						FadeInImg(callback);
+					}, 300)
+				// }
+			}
+			list[i].onmouseout = (e) => {
+				clearTimeout(mouseoverTimer);
+				let target = e.currentTarget;
+				mouseoutTimer = setTimeout( () => {
+					if( hoverFlag ) {
+						for (var j = 0; j < list.length; j++) {
+							if(list[j]) list[j].classList.remove("is_hover");
+						}
+						for (var j = 0; j < sections.length; j++) {
+							if(sections[j]) sections[j].classList.remove("is_hover");
+						}
+
+						hoverFlag = false;
+						FadeOutImg(callback2);
+					}
 				}, 300)
-			// }
-		}
-		list[i].onmouseout = (e) => {
-			clearTimeout(mouseoverTimer);
-			let target = e.currentTarget;
-			mouseoutTimer = setTimeout( () => {
-				if( hoverFlag ) {
-					for (var j = 0; j < list.length; j++) {
-						if(list[j]) list[j].classList.remove("is_hover");
-					}
-					for (var j = 0; j < sections.length; j++) {
-						if(sections[j]) sections[j].classList.remove("is_hover");
-					}
+			}
+		} //if
 
-					hoverFlag = false;
-					FadeOutImg(callback2);
-				}
-			}, 300)
-		}
-
-	}
+	} //for
 
 }
 

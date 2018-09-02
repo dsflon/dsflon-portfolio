@@ -36,7 +36,7 @@
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
                     "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": true,
+                    "lock": false,
                     "link": {
                         "github": "https://test.com",
                         "view": null
@@ -49,7 +49,7 @@
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
                     "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": true,
+                    "lock": false,
                     "link": {
                         "github": "https://test.com",
                         "view": null
@@ -120,7 +120,7 @@
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
                     "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
+                    "lock": true,
                     "link": {
                         "github": "https://test.com",
                         "view": "https://test.com"
@@ -133,7 +133,7 @@
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
                     "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
+                    "lock": true,
                     "link": {
                         "github": "https://test.com",
                         "view": "https://test.com"

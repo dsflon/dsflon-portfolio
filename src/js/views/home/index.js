@@ -7,11 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../../actions';
 
-// Common functions
-// import ImgToBlob from '../../common/_img_to_blob';
-
 // import { Helmet } from "react-helmet";
-// import Three from '../_set_three'
 import { Hover, FadeOutImg, Dark, DarkFade, Wave } from '../three'
 
 class App extends React.Component {
@@ -67,11 +63,17 @@ class App extends React.Component {
         )
     }
 
-    ClickList(e) {
+    ClickList(locked,e) {
 
         e.preventDefault();
 
+        if( locked ) {
+            alert("パスワードが必要です。")
+            return false;
+        }
+
         if( !window.ua.isSp && !this.clickable ) return false;
+
         window.html.classList.add("is_disabled");
 
         let target = e.currentTarget,
@@ -144,13 +146,15 @@ class App extends React.Component {
                     <a
                         id={data[i].id}
                         data-index={this.imageIndex}
-                        className={ "list-link" + (data[i].lock ? " is_lock" : "") }
+                        data-locked={data[i].lock}
+                        className={ "list-link" + (data[i].lock ? " is_locked" : "") }
                         ref={el => {this.listElm.push(el)}}
-                        onClick={this.ClickList.bind(this)}>
+                        onClick={this.ClickList.bind(this,data[i].lock)}>
+                        <div className="list-thumb-wrap">
                         <figure
                             className="list-thumb"
                             style={{"backgroundImage": "url(" + data[i].thumb + ")"}}>
-                        </figure>
+                        </figure></div>
                         <div className="list-txts">
                             <p className="list-date">{data[i].date}</p>
                             <h3 className="list-ttl">

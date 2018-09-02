@@ -18,11 +18,6 @@ const ImageToBase64 = (img, mime_type) => {
     canvas.style.position = "fixed";
     canvas.style.width = "100%";
 
-    setTimeout( () => {
-        console.log(1);
-        console.log(canvas.toDataURL(mime_type));
-    },1000 )
-
     return canvas.toDataURL(mime_type);
 }
 
