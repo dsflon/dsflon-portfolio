@@ -10,6 +10,9 @@ import * as ActionCreators from '../../actions';
 // import { Helmet } from "react-helmet";
 import { Hover, FadeOutImg, Dark, DarkFade, Wave } from '../three'
 
+// Common functions
+// import ImgToBlob from '../../common/_img_to_blob';
+
 class App extends React.Component {
 
     constructor(props) {
@@ -118,6 +121,23 @@ class App extends React.Component {
             URL.revokeObjectURL(blob);
         };
         xhr.send();
+
+        // let img = new Image();
+        // img.src = path;
+        // img.onload = () => {
+        //     let blob = ImgToBlob(img);
+        //     let URL = window.URL || window.webkitURL,
+        //         imgURL = URL.createObjectURL(blob);
+        //     this.listBlob.splice(i, 1, imgURL);
+        //
+        //     if( i == length - 1 ) {
+        //         setTimeout( ()=> {
+        //             this.ImgReplace();
+        //         }, 1000)
+        //     }
+        //
+        // }
+
     }
 
     ImgReplace() {
@@ -135,8 +155,6 @@ class App extends React.Component {
         let list = [];
 
         for (var i = 0; i < data.length; i++) {
-
-            // this.ToBlob(this.imageIndex, data[i].thumb, data.length)
 
             list.push(
                 <li

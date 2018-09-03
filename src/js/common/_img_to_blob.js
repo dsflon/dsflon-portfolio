@@ -14,10 +14,6 @@ const ImageToBase64 = (img, mime_type) => {
     ctx.drawImage(img, 0, 0);
     // To Base64
 
-    document.body.appendChild(canvas);
-    canvas.style.position = "fixed";
-    canvas.style.width = "100%";
-
     return canvas.toDataURL(mime_type);
 }
 
