@@ -5,7 +5,7 @@
 // Title
 // ----------------------------------------------------------
 
-h2.a-ttl {
+.a-ttl {
     font-size: 30px;
     margin-bottom: 40px;
     &:before {
@@ -15,11 +15,32 @@ h2.a-ttl {
         background: #FFF;
         vertical-align: middle;
         margin-right: 10px;
-        margin-left: -25px;
+        margin-left: -15px;
     }
     @include max(480) {
         font-size: 20px;
         margin-bottom: 20px;
+        &:before {
+            width: 10px;
+            margin-right: 5px;
+            margin-left: -15px;
+        }
+    }
+}
+.a-ttl_s {
+    font-size: 20px;
+    margin-bottom: 20px;
+    &:before {
+        content: "";
+        display: inline-block;
+        width: 10px; height: 1px;
+        background: #FFF;
+        vertical-align: middle;
+        margin-right: 10px;
+        margin-left: -20px;
+    }
+    @include max(480) {
+        font-size: 16px;
         &:before {
             width: 10px;
             margin-right: 5px;

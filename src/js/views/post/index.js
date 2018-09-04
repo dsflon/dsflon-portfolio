@@ -64,6 +64,10 @@ class App extends React.Component {
     componentWillUnmount() {
     }
     componentDidUpdate() {
+        if( this.postData.lock && !this.props.props.login ) {
+            window.prevPage = null;
+            this.history.replace("/")
+        }
     }
 
     SetPost(data) {
@@ -117,9 +121,8 @@ class App extends React.Component {
         let postData = this.props.props.dictionary,
             postDom = null;
         if( postData && postId ) {
-            postData = postData[ postId.split("post_")[1] ];
+            this.postData = postData = postData[ postId.split("post_")[1] ];
             postDom = this.SetPost(postData);
-        } else {
         }
 
         return (

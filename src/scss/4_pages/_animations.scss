@@ -8,7 +8,7 @@
     }
     &.home-enter {
         pointer-events: none;
-        #hero { opacity: 0; mix-blend-mode: normal; }
+        #hero, #login-btn { opacity: 0; mix-blend-mode: normal; }
         #contents .a-ttl { opacity: 0; }
         #contents .list-item {
             .list-thumb-wrap:after { opacity: 0; }
@@ -17,8 +17,8 @@
         }
     }
     &.home-enter-active {
-        #hero {
-            transition: opacity 1.0s ease 1.0s;
+        #hero,#login-btn {
+            transition: opacity 1.0s ease 0.2s;
             opacity: 1;
         }
         #contents .a-ttl {
@@ -38,7 +38,7 @@
         }
     }
     &.home-exit {
-        #hero { opacity: 1; }
+        #hero,#login-btn { opacity: 1; }
         #contents .a-ttl { opacity: 1; }
         #contents .list-item {
             .list-thumb-wrap:after { opacity: 0; transition: opacity 0.2s ease; }
@@ -47,7 +47,7 @@
         }
     }
     &.home-exit-active {
-        #hero {
+        #hero,#login-btn {
             transition: opacity 0.5s ease;
             opacity: 0;
             mix-blend-mode: normal;

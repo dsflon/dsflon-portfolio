@@ -96,7 +96,6 @@ function TweenMouseOver( hoverBefore, hoverAfter ) {
 function Hover(list,sections,callback,callback2) {
 
 	// if( !list[0] ) return false;
-
 	for (var i = 0; i < list.length; i++) {
 
 		// if(list[i].dataset.locked) return false;
@@ -142,7 +141,7 @@ function Hover(list,sections,callback,callback2) {
 						hoverFlag = false;
 						FadeOutImg(callback2);
 					}
-				}, 300)
+				}, 100)
 			}
 		} //if
 
@@ -151,6 +150,8 @@ function Hover(list,sections,callback,callback2) {
 }
 
 function UpdateTextureImage(index) {
+
+	if( !SCENE.textures[index] ) return false;
 
     SCENE.uniforms.imgSize.value = new THREE.Vector2(
         SCENE.textures[index].width,

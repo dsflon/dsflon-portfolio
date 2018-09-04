@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link, Route } from "react-router-dom";
 
 import { bindActionCreators } from 'redux';
@@ -13,6 +14,8 @@ import { Hover, FadeOutImg, Dark, DarkFade, Wave } from '../three'
 // Common functions
 // import ImgToBlob from '../../common/_img_to_blob';
 
+import lockIcon from '../../../images/common/lock.svg'
+
 class App extends React.Component {
 
     constructor(props) {
@@ -23,13 +26,13 @@ class App extends React.Component {
         this.listElm = [];
         this.sectionsElm = [];
         this.clickable = false;
+        this.blobFlag = true;
 
         this.listBlob = [];
 
     }
 
     componentDidMount() {
-        this.HoverCntl()
 
         if( window.prevPage == "post" ) {
             window.html.classList.add("is_disabled");
@@ -41,18 +44,19 @@ class App extends React.Component {
                 Dark(1.0)
                 window.html.classList.remove("is_disabled");
             })
+            this.HoverCntl()
         }
 
         window.prevPage = "home";
     }
     componentDidUpdate() {
         this.HoverCntl()
-
-        if( this.imageList[0] ) {
+        if( this.blobFlag && this.imageList[0] ) {
             for (var i = 0; i < this.imageList.length; i++) {
                 this.ToBlob(i,this.imageList[i],this.imageList.length)
                 this.listBlob.push("")
             }
+            this.blobFlag = false;
         }
     }
 
@@ -66,12 +70,33 @@ class App extends React.Component {
         )
     }
 
+    Login(e) {
+        e.preventDefault();
+        let pass = this.refs.login_input.value;
+        if( pass === this.props.state.pass ) {
+            this.listElm =[];
+            this.imageIndex = 0;
+            this.HideLoginBox();
+            this.actions.Login(pass);
+        } else {
+            alert("パスワードが違います")
+        }
+    }
+    HideLoginBox() {
+        this.refs.login.style.opacity = 0;
+        this.refs.login.style.pointerEvents = "none";
+    }
+    ShowLoginBox() {
+        this.refs.login.style.opacity = 1;
+        this.refs.login.style.pointerEvents = "inherit";
+    }
+
     ClickList(locked,e) {
 
         e.preventDefault();
 
-        if( locked ) {
-            alert("パスワードが必要です。")
+        if( locked && !this.login ) {
+            this.ShowLoginBox()
             return false;
         }
 
@@ -141,35 +166,26 @@ class App extends React.Component {
     }
 
     ImgReplace() {
-
         let item = document.getElementsByClassName('list-thumb');
-
         for (var i = 0; i < item.length; i++) {
             item[i].children[0].style.backgroundImage = "url(" + this.listBlob[i] + ")";
         }
-
     }
 
     SetList(data) {
-
         let list = [];
-
         for (var i = 0; i < data.length; i++) {
 
             list.push(
                 <li
                     key={i}
                     className="list-item">
-                {/*<li
-                    key={i}
-                    style={{ "transitionDelay": 0.1 + (i*0.05) +"s" }}
-                    className="list-item">*/}
                     <a
                         id={data[i].id}
                         data-index={this.imageIndex}
-                        data-locked={data[i].lock}
-                        className={ "list-link" + (data[i].lock ? " is_locked" : "") }
-                        ref={el => {this.listElm.push(el)}}
+                        data-locked={!this.login && data[i].lock}
+                        className={ "list-link" + (!this.login && data[i].lock ? " is_locked" : "") }
+                        ref={el => { if(el) this.listElm.push(el) }}
                         onClick={this.ClickList.bind(this,data[i].lock)}>
                         <div className="list-thumb-wrap">
                             <figure className="list-thumb">
@@ -218,17 +234,22 @@ class App extends React.Component {
 
     render() {
 
-        this.state = this.props.state;
+        // this.state = this.props.state;
         this.actions = this.props.actions;
         this.history = this.props.props.history;
 
         this.list = this.props.props.list;
         this.imageList = this.props.props.imageList;
+        this.login = this.props.state.login;
         let list = this.list ? this.SetSection(this.list) : null;
+
+        let loginBtn = !this.login ? <button id="login-btn" onClick={this.ShowLoginBox.bind(this)}><img src={lockIcon} /></button> : null;
 
         return (
 
             <div id="home" className="home-enter-done">
+
+                {loginBtn}
 
                 <div id="hero">
                     <div className="hero-inner">
@@ -248,6 +269,17 @@ class App extends React.Component {
                 <footer id="footer">
                     <p className="address">©Copyrights dsflon. Allrights reserved.</p>
                 </footer>
+
+                <div id="login" ref="login">
+                    <div className="login-inner">
+                        <p className="login-ttl a-ttl_s">Password</p>
+                        <div className="login-wrap">
+                            <input className="login-input" type="email" ref="login_input" />
+                            <button className="login-btn" onClick={this.Login.bind(this)}>Send</button>
+                        </div>
+                    </div>
+                    <div onClick={this.HideLoginBox.bind(this)} className="login-bg"></div>
+                </div>
 
             </div>
 

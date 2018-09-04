@@ -3,32 +3,7 @@
         {
             "title": "prototypes / works",
             "list": [
-                {
-                    "id": "1",
-                    "thumb": "/assets/images/sample/01.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "2",
-                    "thumb": "/assets/images/sample/02.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": null,
-                        "view": "https://test.com"
-                    }
-                },
+                
                 {
                     "id": "3",
                     "thumb": "/assets/images/sample/03.png",
