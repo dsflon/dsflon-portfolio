@@ -100,14 +100,14 @@ void main(){
     vec2 p_ = uv;
     vec2 ajustCenter = p_ / 1.1;
 
-    float len = length(p_ - mouse);
+    float len = length(p_ - mouse*1.5);
     if( isSp ) len = length(p_ - deviceorientation) * 4.0;
 
     float destTex = 1.0;
     float destTex2 = 1.0;
     float destTex3 = 1.0;
 
-    vec2 p  = p_ * 8.0 - vec2(20.0);
+    vec2 p  = p_ * 6.0 - vec2(30.0);
     vec2 i = p;
     float c = 1.0;
     float inten = .02;
@@ -202,6 +202,6 @@ void main(){
         samplerColor2 = vec4( samplerColor2.r, samplerColor2.g, samplerColor2.b, 1.0 );
 
     gl_FragColor = samplerColor2 * samplerColor * texColor * opacity * 1.5;
-    gl_FragColor += vec4( (c+0.5)*vec3(destTex,destTex2,destTex3), 1.0) * texColor * (1. - opacity);
+    gl_FragColor += vec4( 0.75*(c+0.5)*vec3(destTex,destTex2,(destTex+destTex2+destTex3)/3.0), 1.0) * texColor * (1. - opacity);
 
 }
