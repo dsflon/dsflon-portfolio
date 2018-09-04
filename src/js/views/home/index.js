@@ -115,7 +115,7 @@ class App extends React.Component {
             if( i == length - 1 ) {
                 setTimeout( ()=> {
                     this.ImgReplace();
-                }, 1000)
+                }, 500)
             }
 
             URL.revokeObjectURL(blob);
@@ -145,7 +145,7 @@ class App extends React.Component {
         let item = document.getElementsByClassName('list-thumb');
 
         for (var i = 0; i < item.length; i++) {
-            item[i].style.backgroundImage = "url(" + this.listBlob[i] + ")";
+            item[i].children[0].style.backgroundImage = "url(" + this.listBlob[i] + ")";
         }
 
     }
@@ -159,8 +159,11 @@ class App extends React.Component {
             list.push(
                 <li
                     key={i}
-                    style={{ "transitionDelay": 0.1 + (i*0.05) +"s" }}
                     className="list-item">
+                {/*<li
+                    key={i}
+                    style={{ "transitionDelay": 0.1 + (i*0.05) +"s" }}
+                    className="list-item">*/}
                     <a
                         id={data[i].id}
                         data-index={this.imageIndex}
@@ -169,10 +172,10 @@ class App extends React.Component {
                         ref={el => {this.listElm.push(el)}}
                         onClick={this.ClickList.bind(this,data[i].lock)}>
                         <div className="list-thumb-wrap">
-                        <figure
-                            className="list-thumb"
-                            style={{"backgroundImage": "url(" + data[i].thumb + ")"}}>
-                        </figure></div>
+                            <figure className="list-thumb">
+                                <span style={{"backgroundImage": "url(" + data[i].thumb + ")"}} />
+                            </figure>
+                        </div>
                         <div className="list-txts">
                             <p className="list-date">{data[i].date}</p>
                             <h3 className="list-ttl">

@@ -202,6 +202,6 @@ void main(){
         samplerColor2 = vec4( samplerColor2.r, samplerColor2.g, samplerColor2.b, 1.0 );
 
     gl_FragColor = samplerColor2 * samplerColor * texColor * opacity * 1.5;
-    gl_FragColor += texColor * (1. - opacity);
+    gl_FragColor += vec4( (c+0.5)*vec3(destTex,destTex2,destTex3), 1.0) * texColor * (1. - opacity);
 
 }

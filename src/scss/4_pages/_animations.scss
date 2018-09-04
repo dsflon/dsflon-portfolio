@@ -2,28 +2,49 @@
 
 #home {
     &.home-enter-done {
-        #contents .list-item { transition-delay: 0s !important; }
+        #contents .list-item {
+            // transition-delay: 0s !important;
+        }
     }
     &.home-enter {
         pointer-events: none;
         #hero { opacity: 0; mix-blend-mode: normal; }
-        #contents { opacity: 0; }
-        #contents .list-item { opacity: 1; }
+        #contents .a-ttl { opacity: 0; }
+        #contents .list-item {
+            .list-thumb-wrap:after { opacity: 0; }
+            .list-thumb { padding-bottom: 0; }
+            .list-txts { opacity: 0; }
+        }
     }
     &.home-enter-active {
         #hero {
             transition: opacity 1.0s ease 1.0s;
             opacity: 1;
         }
-        #contents {
-            transition: opacity 1.0s ease 1.0s !important;
+        #contents .a-ttl {
+            transition: opacity 0.5s ease 0.2s;
             opacity: 1;
+        }
+        #contents .list-item {
+            .list-thumb-wrap:after { opacity: 1; transition: opacity 0.2s ease 0.2s; }
+            .list-thumb {
+                transition: padding 0.3s ease 0.2s;
+                padding-bottom: 75%;
+            }
+            .list-txts {
+                transition: opacity 0.3s ease 0.2s;
+                opacity: 1;
+            }
         }
     }
     &.home-exit {
         #hero { opacity: 1; }
         #contents .a-ttl { opacity: 1; }
-        #contents .list-item { opacity: 1; transform: translateY(0px); }
+        #contents .list-item {
+            .list-thumb-wrap:after { opacity: 0; transition: opacity 0.2s ease; }
+            .list-thumb { padding-bottom: 75%; }
+            .list-txts { opacity: 1; }
+        }
     }
     &.home-exit-active {
         #hero {
@@ -36,10 +57,14 @@
             opacity: 0;
         }
         #contents .list-item {
-            transition-duration: 0.5s;
-            transition-timing-function: ease;
-            opacity: 0;
-            transform: translateY(20px);
+            .list-thumb {
+                transition: padding 0.3s ease;
+                padding-bottom: 0;
+            }
+            .list-txts {
+                transition: opacity 0.3s ease;
+                opacity: 0;
+            }
         }
     }
 
