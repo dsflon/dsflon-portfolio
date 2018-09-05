@@ -100,7 +100,7 @@ class App extends React.Component {
             return false;
         }
 
-        if( !window.ua.isSp && !this.clickable ) return false;
+        // if( !window.ua.isSp && !this.clickable ) return false;
 
         window.html.classList.add("is_disabled");
 

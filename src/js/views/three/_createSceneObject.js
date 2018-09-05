@@ -91,7 +91,7 @@ export default class CreateSceneImage {
                 };
 
                 count++;
-                if(callback2) callback2(count);
+                if(callback2) callback2(count,this.textures);
 
                 if(count == src.length) {
 
@@ -163,7 +163,7 @@ export default class CreateSceneImage {
                 };
 
                 count++;
-                if(callback2) callback2(count);
+                if(callback2) callback2(count,this.videoTextures);
 
                 reloadTimer = setTimeout( () => {
                     alert("読み込みに時間がかかっています。もう一度開き直します。");

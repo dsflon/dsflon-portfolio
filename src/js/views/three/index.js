@@ -123,7 +123,7 @@ function Hover(list,sections,callback,callback2) {
 						target.classList.add("is_hover");
 
 						FadeInImg(callback);
-					}, 300)
+					}, 400)
 				// }
 			}
 			list[i].onmouseout = (e) => {
@@ -141,7 +141,7 @@ function Hover(list,sections,callback,callback2) {
 						hoverFlag = false;
 						FadeOutImg(callback2);
 					}
-				}, 100)
+				}, 400)
 			}
 		} //if
 
@@ -183,7 +183,7 @@ function HideImg (callback) {
 	SCENE.uniforms.hover.value = 3.0;
 }
 
-function StartThree(three) {
+function StartThree(three, callback, callback2) {
 
 	INIT_THREEE = three.init;
 	TARGET_ELM = three.targetElm;
@@ -195,7 +195,9 @@ function StartThree(three) {
 
 	SCENE.initImageObj(three.imageList, () => {
 		Play();
-	},(i) => {
+		if(callback) callback()
+	}, (i,textures) => {
+		if(callback2) callback2(i,textures)
 	});
 
 }

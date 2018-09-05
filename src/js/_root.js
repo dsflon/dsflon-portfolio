@@ -88,7 +88,16 @@ class Root extends React.Component {
     SetThree(imageList) {
 
         Three( this.refs.bg, imageList, (threeObj) => {
-            StartThree(threeObj)
+
+            StartThree(threeObj, () => {
+                setTimeout( () => {
+                    this.refs.loading_bg.style.opacity = 0;
+                    this.refs.loading_bg.style.pointerEvents = "none";
+                }, 1000);
+        	} , (i,textures) => {
+        		this.refs.loading.innerHTML = Math.floor(i / textures.length * 100) + "%"
+            })
+
         });
 
     }
@@ -100,6 +109,9 @@ class Root extends React.Component {
                 <div>
 
                     <div id="bg" ref="bg"></div>
+                    <div id="loading-bg" ref="loading_bg">
+                        <span id="loading" ref="loading">0%</span>
+                    </div>
 
                     <Route
                         path="/:page?/:postId?"
