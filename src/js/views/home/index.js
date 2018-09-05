@@ -91,6 +91,17 @@ class App extends React.Component {
         this.refs.login.style.pointerEvents = "inherit";
     }
 
+    Mail(e) {
+        e.preventDefault();
+
+        if( this.login ) {
+            location.href = "mailto:dsflon@gmail.com"
+        } else {
+            this.ShowLoginBox();
+        }
+
+    }
+
     ClickList(locked,e) {
 
         e.preventDefault();
@@ -140,7 +151,7 @@ class App extends React.Component {
             if( i == length - 1 ) {
                 setTimeout( ()=> {
                     this.ImgReplace();
-                }, 500)
+                }, 1000)
             }
 
             URL.revokeObjectURL(blob);
@@ -256,8 +267,8 @@ class App extends React.Component {
                         <figure className="hero-img"><img src="/assets/images/logo.svg" alt="dsflon | daiki saito" /></figure>
                         <h1 className="hero-ttl">dsflon | daiki saito</h1>
                         <ul className="hero-links">
-                            <li><a href="#"><img src="/assets/images/github-logo.svg" alt="github" /></a></li>
-                            <li><a href="#"><img src="/assets/images/mail.svg" alt="mail" /></a></li>
+                            <li><a href="https://github.com/dsflon" target="_blank"><img src="/assets/images/github-logo.svg" alt="github" /></a></li>
+                            <li><a href="#" onClick={this.Mail.bind(this)}><img src="/assets/images/mail.svg" alt="mail" /></a></li>
                         </ul>
                     </div>
                 </div>

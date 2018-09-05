@@ -101,7 +101,7 @@ void main(){
     vec2 ajustCenter = p_ / 1.1;
 
     float len = length(p_ - mouse*1.5);
-    if( isSp ) len = length(p_ - deviceorientation) * 4.0;
+    if( isSp ) len = length(p_ - deviceorientation) * 2.0;
 
     float destTex = 1.0;
     float destTex2 = 1.0;
