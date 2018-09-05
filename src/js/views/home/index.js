@@ -51,13 +51,13 @@ class App extends React.Component {
     }
     componentDidUpdate() {
         this.HoverCntl()
-        if( this.blobFlag && this.imageList[0] ) {
-            for (var i = 0; i < this.imageList.length; i++) {
-                this.ToBlob(i,this.imageList[i],this.imageList.length)
-                this.listBlob.push("")
-            }
-            this.blobFlag = false;
-        }
+        // if( this.blobFlag && this.imageList[0] ) {
+        //     for (var i = 0; i < this.imageList.length; i++) {
+        //         this.ToBlob(i,this.imageList[i],this.imageList.length)
+        //         this.listBlob.push("")
+        //     }
+        //     this.blobFlag = false;
+        // }
     }
 
     HoverCntl() {
