@@ -7,5 +7,6 @@ node_modules
 .htpasswd
 .sublime-project
 .sublime-workspace
+.firebase
 
 public/api/
