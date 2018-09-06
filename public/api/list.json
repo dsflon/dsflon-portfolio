@@ -4,87 +4,9 @@
             "title": "prototypes / works",
             "list": [
                 {
-                    "id": "1",
-                    "thumb": "/assets/images/sample/01.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "2",
-                    "thumb": "/assets/images/sample/02.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": null,
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "3",
-                    "thumb": "/assets/images/sample/03.png",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": null
-                    }
-                },
-                {
-                    "id": "4",
-                    "thumb": "/assets/images/sample/04.png",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": null
-                    }
-                },
-                {
-                    "id": "5",
-                    "thumb": "/assets/images/sample/05.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "6",
-                    "thumb": "/assets/images/sample/06.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "7",
-                    "thumb": "/assets/images/sample/07.jpg",
-                    "date": "2018.08",
+                    "id": "works01",
+                    "thumb": "https://firebasestorage.googleapis.com/v0/b/dsflon-portfolio.appspot.com/o/works01.jpg?alt=media&token=23897503-a690-46fd-850c-890983942d0e",
+                    "date": "2014.xx",
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
                     "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
@@ -101,86 +23,8 @@
             "title": "project",
             "list": [
                 {
-                    "id": "8",
-                    "thumb": "/assets/images/sample/08.png",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "9",
-                    "thumb": "/assets/images/sample/09.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": true,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "10",
-                    "thumb": "/assets/images/sample/10.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": true,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "11",
-                    "thumb": "/assets/images/sample/11.png",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "12",
-                    "thumb": "/assets/images/sample/12.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "13",
-                    "thumb": "/assets/images/sample/13.jpg",
-                    "date": "2018.08",
-                    "title": "タイトルが入ります。",
-                    "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
-                    "skills": "PWA / ECMA Script / react / redux / firebase Realtime Database / Storage API / sass / webpack 4",
-                    "lock": false,
-                    "link": {
-                        "github": "https://test.com",
-                        "view": "https://test.com"
-                    }
-                },
-                {
-                    "id": "14",
-                    "thumb": "/assets/images/sample/14.jpg",
+                    "id": "project01",
+                    "thumb": "https://firebasestorage.googleapis.com/v0/b/dsflon-portfolio.appspot.com/o/project01.jpg?alt=media&token=686a1d23-ab5b-48b6-9e56-51571a19ff4a",
                     "date": "2018.08",
                     "title": "タイトルが入ります。",
                     "text": "テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。\r\n\r\nテキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。",
@@ -193,7 +37,6 @@
                 }
             ]
         }
-
 
     ]
 }

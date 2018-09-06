@@ -1,6 +1,3 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -10,20 +7,6 @@ import reducer from './reducers'
 
 import Root from './_root';
 import mgnUa from 'mgn-ua';
-
-/*
-** Firebase Initialize
-*/
-// const config = {
-//     apiKey: "AIzaSyAoCKwZTDg2cnk4EL__2F551peIH409Mug",
-//     authDomain: "device-rental.firebaseapp.com",
-//     databaseURL: "https://device-rental.firebaseio.com",
-//     projectId: "device-rental",
-//     storageBucket: "",
-//     messagingSenderId: "911109915400"
-// };
-// firebase.initializeApp(config);
-
 
 /*
 ** Create Store
@@ -40,25 +23,11 @@ window.html = document.getElementsByTagName('html')[0];
 window.ua = new mgnUa();
 
 /*
-** Onload
+** React
 */
-window.onload = () => {
-
-    /* Firebase Initialize */
-    // window.database = firebase.database();
-    //
-    // window.userRef = window.database.ref('users');
-    // window.devideRef = window.database.ref('devices');
-    /* Firebase Initialize */
-
-    /*
-    ** React
-    */
-    ReactDOM.render(
-        <Provider store={store}>
-            <Root />
-        </Provider>,
-        document.getElementById('app')
-    );
-
-};
+ReactDOM.render(
+    <Provider store={store}>
+        <Root />
+    </Provider>,
+    document.getElementById('app')
+);
