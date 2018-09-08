@@ -24,7 +24,7 @@
     @include arrowAbs($color:#FFF, $size:6, $width:1, $layout:right, $position:15, $direction:right);
 
     @include min(768) {
-        &:hover {
+        &:hover:not(.is_locked) {
             background: rgba(#666,0.9);
         }
     }
@@ -37,6 +37,19 @@
             &:hover {
                 background: rgba(#666,0.2);
             }
+        }
+    }
+
+    &.is_locked {
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0px; top: -5px;
+            width: 20px; height: 20px;
+            border-radius: 100%;
+            background: #333 url("../images/common/lock.svg") no-repeat center 4px;
+            background-size: auto 11px;
         }
     }
 }

@@ -72,8 +72,18 @@ class App extends React.Component {
 
     SetPost(data) {
 
-        let github = data.link.github ? <a href={data.link.github} target="_blank" className="a-btn">GitHub</a> : null;
-        let view = data.link.view ? <a href={data.link.view} target="_blank" className="a-btn">View page</a> : null;
+        let github = data.link.github ? (
+            <a
+                href={!data.link.github[1] ? data.link.github[0] : "javascript:void(0)"}
+                target="_blank"
+                className={"a-btn" + (data.link.github[1] ? " is_locked" : "")}>GitHub</a>
+        ) : null;
+        let view = data.link.view ? (
+            <a
+                href={!data.link.view[1] ? data.link.view[0] : "javascript:void(0)"}
+                target="_blank"
+                className={"a-btn" + (data.link.github[1] ? " is_locked" : "")}>View page</a>
+        ) : null;
 
         return (
 
