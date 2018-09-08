@@ -82,7 +82,7 @@ class App extends React.Component {
             <a
                 href={!data.link.view[1] ? data.link.view[0] : "javascript:void(0)"}
                 target="_blank"
-                className={"a-btn" + (data.link.github[1] ? " is_locked" : "")}>View page</a>
+                className={"a-btn" + (data.link.view[1] ? " is_locked" : "")}>View page</a>
         ) : null;
 
         return (
