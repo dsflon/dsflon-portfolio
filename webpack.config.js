@@ -91,7 +91,7 @@ module.exports = [
             splitChunks: {
                 cacheGroups: {
                     vendor: {
-                        test: /three|tween.js|react|react-dom|react-router-dom|redux|react-redux/,
+                        test: /firebase|three|tween.js|react|react-dom|react-router-dom|redux|react-redux/,
                         name: "assets/js/vendor",
                         chunks: "initial",
                         enforce: true,

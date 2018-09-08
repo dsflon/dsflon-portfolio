@@ -1,9 +1,12 @@
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 // Common functions
-import Fetch from './common/_fetch';
+// import Fetch from './common/_fetch';
 import SetDictionary from './common/_setDictionary';
 
 import Home from './views/home'
@@ -61,27 +64,53 @@ class Root extends React.Component {
 
     componentDidMount() {
 
-        Fetch("/api/list.json", null, (json) => {
+        // Fetch("/api/list.json", null, (json) => {
+        //
+        //     let imageList = [];
+        //
+        //     for (var i = 0; i < json.data.length; i++) {
+        //         let list = json.data[i].list;
+        //         for (var j = 0; j < list.length; j++) {
+        //             imageList.push(list[j].thumb)
+        //         }
+        //     }
+        //
+        //     this.setState({
+        //         list: json.data,
+        //         dictionary: SetDictionary(json.data),
+        //         imageList: imageList
+        //     })
+        //     this.SetThree(imageList)
+        //
+        // },(e) => {
+        //     console.error(e)
+        // });
+
+        let dbData = firebase.database().ref('data');
+        dbData.once('value').then( (snapshot) => {
+
+            let data = snapshot.val();
 
             let imageList = [];
 
-            for (var i = 0; i < json.data.length; i++) {
-                let list = json.data[i].list;
+            for (var i = 0; i < data.length; i++) {
+                let list = data[i].list;
                 for (var j = 0; j < list.length; j++) {
                     imageList.push(list[j].thumb)
                 }
             }
 
             this.setState({
-                list: json.data,
-                dictionary: SetDictionary(json.data),
+                list: data,
+                dictionary: SetDictionary(data),
                 imageList: imageList
             })
             this.SetThree(imageList)
 
-        },(e) => {
-            console.error(e)
+        }).catch( (e) => {
+            console.error(e);
         });
+
 
     }
 
